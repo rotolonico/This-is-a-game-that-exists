@@ -21,7 +21,6 @@ public class LetterHolder : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         if (!active || filled || !other.gameObject.CompareTag("TitleLetter") || other.gameObject.GetComponent<Rigidbody2D>() == ClickHandler.DraggedColliderRb) return;
-        SoundHandler.sound.Play(SoundHandler.sound.a);
         letterRb = other.gameObject.GetComponent<Rigidbody2D>();
         filled = true;
         var otherTransform = other.transform;

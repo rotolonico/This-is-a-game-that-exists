@@ -67,7 +67,6 @@ public class Main : MonoBehaviour
         yield return new WaitForSeconds(soundLength);
         foreach (var letterHolder in GameObject.FindGameObjectsWithTag("LetterHolder"))
         {
-            SoundHandler.sound.Play(SoundHandler.sound.bba);
             letterHolder.GetComponent<LetterHolder>().active = true;
         }
     }
