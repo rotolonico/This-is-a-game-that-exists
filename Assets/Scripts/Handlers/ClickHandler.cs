@@ -35,6 +35,7 @@ namespace Handlers
                     if (col.GetComponent<Draggable>() == null) continue;
                     DraggedColliderRb = col.GetComponent<Rigidbody2D>();
                     DraggedGameObjectPositionI = DraggedColliderRb.transform.position;
+                    DraggedColliderRb.bodyType = RigidbodyType2D.Dynamic;
                     isDragging = true;
                 }
             }

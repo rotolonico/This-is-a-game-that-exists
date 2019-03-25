@@ -61,7 +61,9 @@
     <Compile Include="Assets\Scripts\Handlers\Draggable.cs" />
     <Compile Include="Assets\Scripts\Handlers\SoundHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\StoryHandler.cs" />
+    <Compile Include="Assets\Scripts\LetterHolder.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
+    <Compile Include="Assets\Scripts\TextScaler.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/home/rotolonico/unityprojects/This is a game that exists/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

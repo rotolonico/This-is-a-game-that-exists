@@ -34,16 +34,20 @@ public class Main : MonoBehaviour
     {
         yield return new WaitForSeconds(SoundHandler.sound.bba.length + 3);
         SignFalls(false);
-        SoundHandler.sound.Play(SoundHandler.sound.bbb);
     }
 
     public void SignFalls(bool playerFault)
     {
+        AudioClip sound;
         if (playerFault)
         {
             StoryHandler.madeSignFall = true;
-            SoundHandler.sound.Play(SoundHandler.sound.ba);
+            sound = SoundHandler.sound.ba;
             Destroy(SignTrigger.gameObject);
+        }
+        else
+        {
+            sound = SoundHandler.sound.bbb;
         }
 
         ClickHandler.Active = true;
@@ -51,6 +55,40 @@ public class Main : MonoBehaviour
         {
             letter.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
-        StopCoroutine(nameof(AfterLoadingGame));
+        
+        SoundHandler.sound.Play(sound);
+        
+        StopCoroutine(AfterLoadingGame());
+        StartCoroutine(AfterSignFalls(sound.length));
+    }
+
+    private IEnumerator AfterSignFalls(float soundLength)
+    {
+        yield return new WaitForSeconds(soundLength);
+        foreach (var letterHolder in GameObject.FindGameObjectsWithTag("LetterHolder"))
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.bba);
+            letterHolder.GetComponent<LetterHolder>().active = true;
+        }
+    }
+
+    public IEnumerator AfterSignRaised(bool combo)
+    {
+        AudioClip sound;
+
+        if (!combo && StoryHandler.madeSignFall)
+        {
+            sound = SoundHandler.sound.ca;
+        } else if (!combo && !StoryHandler.madeSignFall)
+        {
+            sound = SoundHandler.sound.cb;
+        }
+        else
+        {
+            sound = SoundHandler.sound.cc;
+        }
+        
+        SoundHandler.sound.Play(sound);
+        yield return new WaitForSeconds(sound.length);
     }
 }

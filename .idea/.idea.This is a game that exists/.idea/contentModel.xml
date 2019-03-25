@@ -13,7 +13,9 @@
             <e p="SoundHandler.cs" t="Include" />
             <e p="StoryHandler.cs" t="Include" />
           </e>
+          <e p="LetterHolder.cs" t="Include" />
           <e p="Main.cs" t="Include" />
+          <e p="TextScaler.cs" t="Include" />
         </e>
       </e>
       <e p="Library" t="ExcludeRecursive" />
