@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Handlers;
 using UnityEngine;
 
@@ -43,14 +44,23 @@ public class LetterHolder : MonoBehaviour
     private void CheckHolders()
     {
         var correct = true;
-        foreach (var letterHolder in letterHolders)
+        char[] letters = new char[4];
+        for (var i = 0; i < letterHolders.Length; i++)
         {
+            var letterHolder = letterHolders[i];
             if (letterHolder.GetComponent<LetterHolder>().filled == false) return;
+            letters[i] = letterHolder.GetComponent<LetterHolder>().letter;
             if (letterHolder.GetComponent<LetterHolder>().letter != letterHolder.name[0])
             {
                 correct = false;
             }
         }
+
+        if (letters.Where((letter, i) => letters.Where((t, j) => i != j).Any(letter2 => letter == letter2)).Any())
+        {
+            return;
+        }
+
 
         StartCoroutine(GameObject.Find("MainHandler").GetComponent<Main>().AfterSignRaised(correct));
     }

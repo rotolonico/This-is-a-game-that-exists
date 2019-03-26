@@ -13,6 +13,9 @@ namespace Handlers
         public AudioClip ca;
         public AudioClip cb;
         public AudioClip cc;
+        public AudioClip da;
+        public AudioClip ea;
+        public AudioClip eb;
 
         public AudioSource audioSource;
 
