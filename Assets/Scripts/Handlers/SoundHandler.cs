@@ -16,6 +16,14 @@ namespace Handlers
         public AudioClip da;
         public AudioClip ea;
         public AudioClip eb;
+        public AudioClip fa;
+        public AudioClip fba;
+        public AudioClip fbba;
+        public AudioClip fbbb;
+        public AudioClip fbbc;
+        public AudioClip fbc;
+
+        public AudioClip loadingSound;
 
         public AudioSource audioSource;
 

@@ -1,25 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GirlGame;
 using Handlers;
+using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Main : MonoBehaviour
 {
     public Button SignTrigger;
-    public GameObject GameStarterImage;
-
+    public GameObject GameStarter;
     public GameObject AdminCanvas;
     public GameObject AdminWindowTrigger;
     public GameObject AdminWindow;
     public GameObject AdminCheckMark;
     public Sprite AdminCheckMarkChecked;
+    public InfoBox infoBox;
+    public OptionBox optionBox;
 
     private bool adminCheckMarkCheckedBool;
 
     private GameObject[] titleLetters;
     private GameObject[] letterHolders;
+    private Image gameStarterImage;
+    private Animator gameStarterAnimator;
     
     public void Initialize()
     {
@@ -27,11 +33,25 @@ public class Main : MonoBehaviour
         StartCoroutine(nameof(AfterIntroduction));
         titleLetters = GameObject.FindGameObjectsWithTag("TitleLetter");
         letterHolders = GameObject.FindGameObjectsWithTag("LetterHolder");
+        gameStarterImage = GameStarter.GetComponent<Image>();
+        gameStarterAnimator = GameStarter.GetComponent<Animator>();
+    }
+
+    private IEnumerator test()
+    {
+        optionBox.PopupOptionBox("Do you like me?", "Yes", "No");
+        while (optionBox.playerChoice == 0)
+        {
+            yield return null;
+        }
+        Debug.Log(optionBox.playerChoice);
+        optionBox.playerChoice = 0;
     }
 
     private IEnumerator AfterIntroduction()
     {
-        yield return new WaitForSeconds(SoundHandler.sound.a.length);        
+        yield return new WaitForSeconds(SoundHandler.sound.a.length);
+        infoBox.PopupInfoBox("THIS GAME HAS MULTIPLE ENDINGS\nEVERYTHING YOU DO WILL AFFECT THE STORYLINE", 5);
         SignTrigger.interactable = true;
         StartCoroutine(nameof(AfterLoadingGame));
     }
@@ -96,13 +116,16 @@ public class Main : MonoBehaviour
         if (!combo && StoryHandler.madeSignFall)
         {
             sound = SoundHandler.sound.ca;
+            StoryHandler.scrambledSign = true;
         } else if (!combo && !StoryHandler.madeSignFall)
         {
             sound = SoundHandler.sound.cb;
+            StoryHandler.scrambledSign = true;
         }
         else
         {
             sound = SoundHandler.sound.cc;
+            StoryHandler.scrambledSign = false;
         }
         
         SoundHandler.sound.Play(sound);
@@ -154,15 +177,61 @@ public class Main : MonoBehaviour
         if (adminCheckMarkCheckedBool) yield break;
         adminCheckMarkCheckedBool = true;
         AdminCheckMark.GetComponent<Image>().sprite = AdminCheckMarkChecked;
+        StoryHandler.fixedGame = true;
         SoundHandler.sound.Play(SoundHandler.sound.eb);
-        yield return new WaitForSeconds(4f);
-        GameStarterImage.GetComponent<Animator>().Play("Opacity100");
-        yield return new WaitForSeconds(5f);
-        GameStarterImage.GetComponent<Image>().enabled = false;
+        yield return new WaitForSeconds(4);
+        gameStarterAnimator.Play("Opacity100");
+        yield return new WaitForSeconds(5);
+        Destroy(AdminCanvas);
+        gameStarterAnimator.enabled = false;
+        gameStarterImage.enabled = false;
+        yield return new WaitForSeconds(SoundHandler.sound.eb.length - 9);
+        StartCoroutine(GetToGirlGame());
     }
 
     private IEnumerator GetToGirlGame()
     {
-        yield return new WaitForSeconds(3);
+        SoundHandler.sound.Play(SoundHandler.sound.loadingSound);
+        gameStarterImage.enabled = true;
+        gameStarterAnimator.enabled = true;
+        gameStarterAnimator.Play("Opacity100P");
+        yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
+        SceneManager.LoadScene(1);
+    }
+
+    public IEnumerator StartGirlGame()
+    {
+        if (StoryHandler.fixedGame)
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.fa);
+            yield return new WaitForSeconds(SoundHandler.sound.fa.length);
+        }
+        else
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.fba);
+            yield return new WaitForSeconds(SoundHandler.sound.fba.length);
+            
+            if (StoryHandler.madeSignFall && StoryHandler.scrambledSign)
+            {
+                SoundHandler.sound.Play(SoundHandler.sound.fbba);
+                yield return new WaitForSeconds(SoundHandler.sound.fbba.length);
+            }
+            if (StoryHandler.madeSignFall && !StoryHandler.scrambledSign)
+            {
+                SoundHandler.sound.Play(SoundHandler.sound.fbbb);
+                yield return new WaitForSeconds(SoundHandler.sound.fbbb.length);
+            }
+            if (!StoryHandler.madeSignFall && StoryHandler.scrambledSign)
+            {
+                SoundHandler.sound.Play(SoundHandler.sound.fbbc);
+                yield return new WaitForSeconds(SoundHandler.sound.fbbc.length);
+            }
+            
+            SoundHandler.sound.Play(SoundHandler.sound.fbc);
+            yield return new WaitForSeconds(SoundHandler.sound.fbc.length);
+        }
+        
+        infoBox.PopupInfoBox("YOU CAN NOW MOVE WITH \"WASD\"\nOR THE ARROW KEYS", 5);
+        GPlayerController.activated = true;
     }
 }

@@ -7,6 +7,10 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
+          <e p="GirlGame" t="Include">
+            <e p="GPlayerController.cs" t="Include" />
+            <e p="GirlGameStarter.cs" t="Include" />
+          </e>
           <e p="Handlers" t="Include">
             <e p="ClickHandler.cs" t="Include" />
             <e p="Draggable.cs" t="Include" />
@@ -15,7 +19,14 @@
           </e>
           <e p="LetterHolder.cs" t="Include" />
           <e p="Main.cs" t="Include" />
-          <e p="TextScaler.cs" t="Include" />
+          <e p="UI" t="Include">
+            <e p="InfoBox.cs" t="Include" />
+            <e p="OptionBox.cs" t="Include" />
+            <e p="TextScaler.cs" t="Include" />
+          </e>
+          <e p="Utilities" t="Include">
+            <e p="DoNotDestroyOnLoad.cs" t="Include" />
+          </e>
         </e>
       </e>
       <e p="Library" t="ExcludeRecursive" />

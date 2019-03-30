@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TitleLetter
   - LetterHolder
+  - GWall
   layers:
   - Default
   - TransparentFX
