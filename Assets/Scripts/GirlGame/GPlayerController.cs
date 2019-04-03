@@ -19,5 +19,14 @@ namespace GirlGame
         {
             if (activated) rb.MovePosition(transform.position + new Vector3 (Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))*Time.deltaTime*speed);
         }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.CompareTag("GEnd")) return;
+            StartCoroutine(GameObject.Find("MainHandler").GetComponent<Main>().EndGirlGame());
+            activated = false;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        }
     }
 }

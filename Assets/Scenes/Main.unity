@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 71727143}
   - component: {fileID: 71727142}
   - component: {fileID: 71727141}
+  - component: {fileID: 71727144}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -178,6 +179,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &71727144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71727140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5fb5c6cf6525c51b9f7f4aa1ba3078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &85499888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,7 +1251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -294.5, y: -43.09999}
+  m_AnchoredPosition: {x: -294.5, y: -43.099976}
   m_SizeDelta: {x: 589, y: 86.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &844381756
@@ -2373,7 +2386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -442.5, y: -43.09999}
+  m_AnchoredPosition: {x: -442.5, y: -43.099976}
   m_SizeDelta: {x: 885, y: 86.199}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1476895794
@@ -2805,6 +2818,13 @@ MonoBehaviour:
   fbbb: {fileID: 8300000, guid: 046497354767375ad89018f579959001, type: 3}
   fbbc: {fileID: 8300000, guid: 0965bd989015527b18de9b0e0a5d62ab, type: 3}
   fbc: {fileID: 8300000, guid: 2ab7a19e192da2470bee2db5f3bb5d7d, type: 3}
+  g: {fileID: 8300000, guid: 8a2876f93e6599876b911899c67ffbc8, type: 3}
+  ha: {fileID: 8300000, guid: 1965e6f21d332fd90b1cb2c0e835c5f7, type: 3}
+  hba: {fileID: 8300000, guid: a285bd22b1b8bbe2dbbedcc79470091e, type: 3}
+  hbb: {fileID: 8300000, guid: 95902791f3ab36beda236e8f738cd299, type: 3}
+  i: {fileID: 8300000, guid: a822c9014e0d8d6e881e66f23e8fdf8d, type: 3}
+  ja: {fileID: 8300000, guid: f80ecb2e1ef0436deada5f96f3a7a24c, type: 3}
+  jb: {fileID: 8300000, guid: da24791c9761aa7bfb142f37cb63e94e, type: 3}
   loadingSound: {fileID: 8300000, guid: 93d7ef49092e9aba59511ca3a4263fcb, type: 3}
   audioSource: {fileID: 1572989633}
 --- !u!4 &1572989635
@@ -3041,7 +3061,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -309, y: -43.10005}
+  m_AnchoredPosition: {x: -309, y: -43.100037}
   m_SizeDelta: {x: 618, y: 86.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1775057878
@@ -3362,7 +3382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -50, y: -36.200027}
+  m_AnchoredPosition: {x: -50, y: -36.200012}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1832910188

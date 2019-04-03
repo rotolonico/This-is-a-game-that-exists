@@ -22,6 +22,13 @@ namespace Handlers
         public AudioClip fbbb;
         public AudioClip fbbc;
         public AudioClip fbc;
+        public AudioClip g;
+        public AudioClip ha;
+        public AudioClip hba;
+        public AudioClip hbb;
+        public AudioClip i;
+        public AudioClip ja;
+        public AudioClip jb;
 
         public AudioClip loadingSound;
 

@@ -37,17 +37,6 @@ public class Main : MonoBehaviour
         gameStarterAnimator = GameStarter.GetComponent<Animator>();
     }
 
-    private IEnumerator test()
-    {
-        optionBox.PopupOptionBox("Do you like me?", "Yes", "No");
-        while (optionBox.playerChoice == 0)
-        {
-            yield return null;
-        }
-        Debug.Log(optionBox.playerChoice);
-        optionBox.playerChoice = 0;
-    }
-
     private IEnumerator AfterIntroduction()
     {
         yield return new WaitForSeconds(SoundHandler.sound.a.length);
@@ -233,5 +222,91 @@ public class Main : MonoBehaviour
         
         infoBox.PopupInfoBox("YOU CAN NOW MOVE WITH \"WASD\"\nOR THE ARROW KEYS", 5);
         GPlayerController.activated = true;
+    }
+
+    public IEnumerator EndGirlGame()
+    {
+        SoundHandler.sound.Play(SoundHandler.sound.g);
+        yield return new WaitForSeconds(SoundHandler.sound.g.length);
+        
+        optionBox.PopupOptionBox("WHAT DO YOU THINK OF THE GAME?", "IT'S GREAT", "IT'S KIND OF BUGGY");
+        while (optionBox.playerChoice == 0)
+        {
+            yield return null;
+        }
+
+        StartCoroutine(optionBox.playerChoice == 1 ? LikedGirlGame() : DislikedGirlGame());
+        optionBox.playerChoice = 0;
+    }
+
+    private IEnumerator LikedGirlGame()
+    {
+        SoundHandler.sound.Play(SoundHandler.sound.ha);
+        yield return new WaitForSeconds(SoundHandler.sound.ha.length);
+        
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(StoryHandler.fixedGame ? FixedGame() : RandomGame());
+    }
+    
+    private IEnumerator DislikedGirlGame()
+    {
+        if (StoryHandler.fixedGame)
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.hba);
+            yield return new WaitForSeconds(SoundHandler.sound.hba.length);
+            yield return new WaitForSeconds(2f);
+            StartCoroutine(FixedGame());
+        }
+        else
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.hbb);
+            yield return new WaitForSeconds(SoundHandler.sound.hbb.length);
+            StartCoroutine(RandomGame());
+        }
+    }
+
+    private IEnumerator FixedGame()
+    {
+        SoundHandler.sound.Play(SoundHandler.sound.i);
+        yield return new WaitForSeconds(SoundHandler.sound.i.length);
+        
+        optionBox.PopupOptionBox("DO YOU WANT TO GO WITH HIM?", "SURE", "NO, I'D RATHER STAY HERE");
+        while (optionBox.playerChoice == 0)
+        {
+            yield return null;
+        }
+
+        StartCoroutine(optionBox.playerChoice == 1 ? BackToGuyGame() : StayInGirlGame());
+
+        optionBox.playerChoice = 0;
+    }
+
+    private IEnumerator StayInGirlGame()
+    {
+        if (StoryHandler.madeSignFall && StoryHandler.scrambledSign)
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.jb);
+            yield return new WaitForSeconds(SoundHandler.sound.jb.length);
+        }
+        else
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.ja);
+            yield return new WaitForSeconds(SoundHandler.sound.ja.length);
+        }
+        
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(RandomGame());
+    }
+
+    private IEnumerator RandomGame()
+    {
+        yield return new WaitForSeconds(1);
+        Debug.Log("RandomGame");
+    }
+
+    private IEnumerator BackToGuyGame()
+    {
+        yield return new WaitForSeconds(1);
+        Debug.Log("BackToGuyGame");
     }
 }
