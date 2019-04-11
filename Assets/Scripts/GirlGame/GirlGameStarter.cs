@@ -6,7 +6,9 @@ namespace GirlGame
     {
         private void Start()
         {
-            StartCoroutine(GameObject.Find("MainHandler").GetComponent<Main>().StartGirlGame());
+            var mainHandler = GameObject.Find("MainHandler").GetComponent<Main>();
+            StartCoroutine(mainHandler.StartGirlGame());
+            mainHandler.gameStarterImage.enabled = false;
         }
     }
 }

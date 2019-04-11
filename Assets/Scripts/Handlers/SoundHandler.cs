@@ -29,10 +29,14 @@ namespace Handlers
         public AudioClip i;
         public AudioClip ja;
         public AudioClip jb;
+        public AudioClip k;
+        public AudioClip la;
+        public AudioClip lb;
 
         public AudioClip loadingSound;
 
         public AudioSource audioSource;
+        public AudioSource secondaryAudioSource;
 
         private void Start()
         {
@@ -45,6 +49,12 @@ namespace Handlers
         {
             audioSource.clip = audioClip;
             audioSource.Play();
+        }
+        
+        public void PlaySecondary(AudioClip audioClip)
+        {
+            secondaryAudioSource.clip = audioClip;
+            secondaryAudioSource.Play();
         }
     }
 }

@@ -61,7 +61,6 @@ public class LetterHolder : MonoBehaviour
             return;
         }
 
-
         StartCoroutine(GameObject.Find("MainHandler").GetComponent<Main>().AfterSignRaised(correct));
     }
 }

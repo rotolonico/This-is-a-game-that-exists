@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GirlGame.unity
     guid: f039c00704e5dd0cab25c13be1c6dc0c
+  - enabled: 1
+    path: Assets/Scenes/RandomGameLoadingScreen.unity
+    guid: 20ca787bcba40efa38c8815fc5dc3fce
   m_configObjects: {}

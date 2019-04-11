@@ -24,7 +24,7 @@ public class Main : MonoBehaviour
 
     private GameObject[] titleLetters;
     private GameObject[] letterHolders;
-    private Image gameStarterImage;
+    public Image gameStarterImage;
     private Animator gameStarterAnimator;
     
     public void Initialize()
@@ -245,7 +245,15 @@ public class Main : MonoBehaviour
         yield return new WaitForSeconds(SoundHandler.sound.ha.length);
         
         yield return new WaitForSeconds(2f);
-        StartCoroutine(StoryHandler.fixedGame ? FixedGame() : RandomGame());
+        
+        if (StoryHandler.fixedGame)
+        {
+            StartCoroutine(FixedGame());
+        }
+        else
+        {
+            RandomGame();
+        }
     }
     
     private IEnumerator DislikedGirlGame()
@@ -261,7 +269,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.hbb);
             yield return new WaitForSeconds(SoundHandler.sound.hbb.length);
-            StartCoroutine(RandomGame());
+            RandomGame();
         }
     }
 
@@ -276,7 +284,8 @@ public class Main : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(optionBox.playerChoice == 1 ? BackToGuyGame() : StayInGirlGame());
+        StartCoroutine(optionBox.playerChoice == 1 ? GetToRandomGame() : StayInGirlGame());
+        StoryHandler.wentToGuyGame = optionBox.playerChoice == 1;
 
         optionBox.playerChoice = 0;
     }
@@ -295,18 +304,40 @@ public class Main : MonoBehaviour
         }
         
         yield return new WaitForSeconds(2f);
-        StartCoroutine(RandomGame());
+        RandomGame();
     }
 
-    private IEnumerator RandomGame()
+    private void RandomGame()
     {
-        yield return new WaitForSeconds(1);
-        Debug.Log("RandomGame");
+        SoundHandler.sound.Play(SoundHandler.sound.k);
+        StartCoroutine(GetToRandomGame());
     }
 
-    private IEnumerator BackToGuyGame()
+    private IEnumerator GetToRandomGame()
     {
-        yield return new WaitForSeconds(1);
-        Debug.Log("BackToGuyGame");
+        SoundHandler.sound.PlaySecondary(SoundHandler.sound.loadingSound);
+        gameStarterImage.enabled = true;
+        gameStarterAnimator.enabled = true;
+        gameStarterAnimator.Play("Opacity100B");
+        yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
+        SceneManager.LoadScene(2);
     }
+    
+    public IEnumerator StartRandomGame()
+    {
+        yield return new WaitForSeconds(1f);
+        
+        if (StoryHandler.wentToGuyGame)
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.la);
+            yield return new WaitForSeconds(SoundHandler.sound.la.length);
+        }
+        else
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.lb);
+            yield return new WaitForSeconds(SoundHandler.sound.lb.length);
+        }
+    }
+    
+    
 }

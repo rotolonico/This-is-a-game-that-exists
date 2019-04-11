@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Handlers\StoryHandler.cs" />
     <Compile Include="Assets\Scripts\LetterHolder.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
+    <Compile Include="Assets\Scripts\RandomGame\RandomGameStarter.cs" />
     <Compile Include="Assets\Scripts\UI\InfoBox.cs" />
     <Compile Include="Assets\Scripts\UI\OptionBox.cs" />
     <Compile Include="Assets\Scripts\UI\TextScaler.cs" />

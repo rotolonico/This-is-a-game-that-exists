@@ -7,6 +7,7 @@ namespace Handlers
         public static bool madeSignFall;
         public static bool scrambledSign;
         public static bool fixedGame;
-        public static bool likeGirlGame;
+        public static bool likedGirlGame;
+        public static bool wentToGuyGame;
     }
 }
