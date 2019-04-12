@@ -32,8 +32,15 @@ namespace Handlers
         public AudioClip k;
         public AudioClip la;
         public AudioClip lb;
+        public AudioClip m;
+        public AudioClip na;
+        public AudioClip nb;
+        public AudioClip o;
+        public AudioClip p;
 
         public AudioClip loadingSound;
+        public AudioClip squareWhite;
+        public AudioClip squareColor;
 
         public AudioSource audioSource;
         public AudioSource secondaryAudioSource;

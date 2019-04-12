@@ -323,7 +323,7 @@ public class Main : MonoBehaviour
         SceneManager.LoadScene(2);
     }
     
-    public IEnumerator StartRandomGame()
+    public IEnumerator StartRandomGameLoading()
     {
         yield return new WaitForSeconds(1f);
         
@@ -337,6 +337,49 @@ public class Main : MonoBehaviour
             SoundHandler.sound.Play(SoundHandler.sound.lb);
             yield return new WaitForSeconds(SoundHandler.sound.lb.length);
         }
+
+        SceneManager.LoadScene(3);
+    }
+    
+    public IEnumerator StartRandomGame()
+    {
+        ClickHandler.Active = false;
+        
+        yield return new WaitForSeconds(1f);
+        SoundHandler.sound.Play(SoundHandler.sound.m);
+        yield return new WaitForSeconds(SoundHandler.sound.m.length);
+        
+        optionBox.PopupOptionBox("WHAT DO YOU WANT TO DO?", "TELL HIM", "REMAIN SILENT");
+        while (optionBox.playerChoice == 0)
+        {
+            yield return null;
+        }
+
+        StoryHandler.saidName = optionBox.playerChoice == 1;
+        optionBox.playerChoice = 0;
+        
+        if (StoryHandler.saidName)
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.na);
+            yield return new WaitForSeconds(SoundHandler.sound.na.length);
+        }
+        else
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.nb);
+            yield return new WaitForSeconds(SoundHandler.sound.nb.length);
+        }
+        
+        SoundHandler.sound.Play(SoundHandler.sound.o);
+        yield return new WaitForSeconds(SoundHandler.sound.o.length);
+        
+        infoBox.PopupInfoBox("TRY DRAGGING THE BLOCKS TO THE LIGHT", 5);
+        ClickHandler.Active = true;
+    }
+
+    public IEnumerator FinishFirstPuzzle()
+    {
+        SoundHandler.sound.Play(SoundHandler.sound.p);
+        yield return new WaitForSeconds(SoundHandler.sound.p.length);
     }
     
     

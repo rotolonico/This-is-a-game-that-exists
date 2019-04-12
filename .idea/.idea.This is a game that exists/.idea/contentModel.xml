@@ -10,6 +10,7 @@
           <e p="GirlGame" t="Include">
             <e p="GPlayerController.cs" t="Include" />
             <e p="GirlGameStarter.cs" t="Include" />
+            <e p="LetterHolder.cs" t="Include" />
           </e>
           <e p="Handlers" t="Include">
             <e p="ClickHandler.cs" t="Include" />
@@ -17,10 +18,13 @@
             <e p="SoundHandler.cs" t="Include" />
             <e p="StoryHandler.cs" t="Include" />
           </e>
-          <e p="LetterHolder.cs" t="Include" />
           <e p="Main.cs" t="Include" />
           <e p="RandomGame" t="Include">
+            <e p="RandomGameLoadingStarter.cs" t="Include" />
             <e p="RandomGameStarter.cs" t="Include" />
+            <e p="Square.cs" t="Include" />
+            <e p="SquareHolder.cs" t="Include" />
+            <e p="SquareLight.cs" t="Include" />
           </e>
           <e p="UI" t="Include">
             <e p="InfoBox.cs" t="Include" />

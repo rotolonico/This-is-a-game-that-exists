@@ -2940,7 +2940,14 @@ MonoBehaviour:
   k: {fileID: 8300000, guid: e431c518a1727a54992765024348db5b, type: 3}
   la: {fileID: 8300000, guid: ea73a14d0c549f8acbc2cab391399626, type: 3}
   lb: {fileID: 8300000, guid: a24f5b67e34c6dde1a9f9402a24bd07d, type: 3}
+  m: {fileID: 8300000, guid: 0a2b42c2044482067b4646ad0513d7d7, type: 3}
+  na: {fileID: 8300000, guid: ded35c4717d7de6578ce35fac0fb03b3, type: 3}
+  nb: {fileID: 8300000, guid: 2d7c7466e983c7b52a4df7b6e9ec905d, type: 3}
+  o: {fileID: 8300000, guid: abaf82d894b9a273a878162a6a0d7893, type: 3}
+  p: {fileID: 8300000, guid: 3968335e004e042509b775a9b5fde113, type: 3}
   loadingSound: {fileID: 8300000, guid: 93d7ef49092e9aba59511ca3a4263fcb, type: 3}
+  squareWhite: {fileID: 8300000, guid: 8b22c9f3bfbe761a48d27e5a9b32b62f, type: 3}
+  squareColor: {fileID: 8300000, guid: 13bf6517b137df5758e707780c1c5d9f, type: 3}
   audioSource: {fileID: 1572989633}
   secondaryAudioSource: {fileID: 1572989639}
 --- !u!4 &1572989635

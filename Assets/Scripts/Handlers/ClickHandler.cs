@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using RandomGame;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -33,6 +34,14 @@ namespace Handlers
                 foreach (var col in hitCollider)
                 {
                     if (col.GetComponent<Draggable>() == null) continue;
+                    if (col.GetComponent<Square>() != null)
+                    {
+                        SoundHandler.sound.PlaySecondary(SoundHandler.sound.squareWhite);
+                        foreach (var square in GameObject.FindGameObjectsWithTag("Square"))
+                        {
+                            square.GetComponent<Square>().ChangeColor("White");
+                        }
+                    }
                     DraggedColliderRb = col.GetComponent<Rigidbody2D>();
                     DraggedGameObjectPositionI = DraggedColliderRb.transform.position;
                     DraggedColliderRb.bodyType = RigidbodyType2D.Dynamic;

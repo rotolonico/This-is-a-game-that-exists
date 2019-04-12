@@ -8,6 +8,8 @@ TagManager:
   - LetterHolder
   - GWall
   - GEnd
+  - Square
+  - SquareHolder
   layers:
   - Default
   - TransparentFX
