@@ -10395,6 +10395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   filled: 0
   color: Red
+  square: {fileID: 0}
 --- !u!222 &1687253401
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10476,6 +10477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   filled: 0
   color: Green
+  square: {fileID: 0}
 --- !u!222 &2073070482
 CanvasRenderer:
   m_ObjectHideFlags: 0

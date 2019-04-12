@@ -9,9 +9,9 @@ namespace RandomGame
     {
         public bool filled;
 
-        private Square square;
         public string color;
 
+        public Square square;
         private Rigidbody2D squareRb;
         private GameObject[] squareHolders;
 
@@ -48,7 +48,7 @@ namespace RandomGame
             {
                 var squareHolderComponent = squareHolder.GetComponent<SquareHolder>();
                 if (squareHolderComponent.filled == false) return;
-                if (square.color != squareHolderComponent.color) return;
+                if (squareHolderComponent.square.color != squareHolderComponent.color) return;
             }
 
             StartCoroutine(GameObject.Find("MainHandler").GetComponent<Main>().FinishFirstPuzzle());
