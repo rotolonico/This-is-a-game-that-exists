@@ -8,7 +8,8 @@ namespace RandomGame
     public class SquareHolder : MonoBehaviour
     {
         public bool filled;
-        private string squareColor;
+
+        private Square square;
         public string color;
 
         private Rigidbody2D squareRb;
@@ -28,7 +29,7 @@ namespace RandomGame
             otherTransform.position = (Vector2) transform.position;
             otherTransform.rotation = transform.rotation;
             other.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-            squareColor = other.GetComponent<Square>().color;
+            square = other.GetComponent<Square>();
             CheckHolders();
         }
 
@@ -47,7 +48,7 @@ namespace RandomGame
             {
                 var squareHolderComponent = squareHolder.GetComponent<SquareHolder>();
                 if (squareHolderComponent.filled == false) return;
-                if (squareHolderComponent.squareColor != squareHolderComponent.color) return;
+                if (square.color != squareHolderComponent.color) return;
             }
 
             StartCoroutine(GameObject.Find("MainHandler").GetComponent<Main>().FinishFirstPuzzle());
