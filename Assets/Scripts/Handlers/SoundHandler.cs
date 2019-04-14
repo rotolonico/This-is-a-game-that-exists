@@ -58,10 +58,20 @@ namespace Handlers
             audioSource.Play();
         }
         
+        public void Stop()
+        {
+            audioSource.Stop();
+        }
+        
         public void PlaySecondary(AudioClip audioClip)
         {
             secondaryAudioSource.clip = audioClip;
             secondaryAudioSource.Play();
+        }
+
+        public void StopSecondary()
+        {
+            secondaryAudioSource.Stop();
         }
     }
 }

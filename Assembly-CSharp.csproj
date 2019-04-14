@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Handlers\SoundHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\StoryHandler.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
+    <Compile Include="Assets\Scripts\RandomGame\Laser.cs" />
     <Compile Include="Assets\Scripts\RandomGame\RandomGameLoadingStarter.cs" />
     <Compile Include="Assets\Scripts\RandomGame\RandomGameStarter.cs" />
     <Compile Include="Assets\Scripts\RandomGame\Square.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets\Scripts\RandomGame\SquareLight.cs" />
     <Compile Include="Assets\Scripts\UI\InfoBox.cs" />
     <Compile Include="Assets\Scripts\UI\OptionBox.cs" />
+    <Compile Include="Assets\Scripts\UI\SkipButton.cs" />
     <Compile Include="Assets\Scripts\UI\TextScaler.cs" />
     <Compile Include="Assets\Scripts\Utilities\DoNotDestroyOnLoad.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

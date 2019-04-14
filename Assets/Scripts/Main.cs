@@ -10,6 +10,8 @@ using UnityEngine.UI;
 
 public class Main : MonoBehaviour
 {
+    public static bool Skip;
+    
     public Button SignTrigger;
     public GameObject GameStarter;
     public GameObject AdminCanvas;
@@ -19,6 +21,7 @@ public class Main : MonoBehaviour
     public Sprite AdminCheckMarkChecked;
     public InfoBox infoBox;
     public OptionBox optionBox;
+    public SkipButton skipButton;
 
     private bool adminCheckMarkCheckedBool;
 
@@ -39,7 +42,20 @@ public class Main : MonoBehaviour
 
     private IEnumerator AfterIntroduction()
     {
-        yield return new WaitForSeconds(SoundHandler.sound.a.length);
+        var t = SoundHandler.sound.a.length;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
+
         infoBox.PopupInfoBox("THIS GAME HAS MULTIPLE ENDINGS\nEVERYTHING YOU DO WILL AFFECT THE STORYLINE", 5);
         SignTrigger.interactable = true;
         StartCoroutine(nameof(AfterLoadingGame));
@@ -55,7 +71,19 @@ public class Main : MonoBehaviour
     
     private IEnumerator AfterTakingLonger()
     {
-        yield return new WaitForSeconds(SoundHandler.sound.bba.length + 3);
+        var t = SoundHandler.sound.bba.length + 3;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
         SignFalls(false);
     }
 
@@ -87,7 +115,19 @@ public class Main : MonoBehaviour
 
     private IEnumerator AfterSignFalls(float soundLength)
     {
-        yield return new WaitForSeconds(soundLength);
+        var t = soundLength;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
         foreach (var letterHolder in letterHolders)
         {
             letterHolder.GetComponent<LetterHolder>().active = true;
@@ -132,21 +172,57 @@ public class Main : MonoBehaviour
                 }
             }
         }
-        yield return new WaitForSeconds(sound.length + 3);
+        var t = sound.length;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
         StartCoroutine(GameStillNotLoading());
     }
 
     private IEnumerator GameStillNotLoading()
     {
         SoundHandler.sound.Play(SoundHandler.sound.da);
-        yield return new WaitForSeconds(SoundHandler.sound.da.length);
+        var t = SoundHandler.sound.da.length;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
         AdminWindowTrigger.GetComponent<Animator>().Play("Opacity100");
         AdminWindowTrigger.GetComponent<Button>().interactable = true;
         yield return new WaitForSeconds(9.4f);
         if (adminCheckMarkCheckedBool) yield break;
         Destroy(AdminCanvas);
         SoundHandler.sound.Play(SoundHandler.sound.ea);
-        yield return new WaitForSeconds(SoundHandler.sound.ea.length);
+        var t2 = SoundHandler.sound.ea.length;
+        skipButton.PopupSkipButton(t2);
+        while (t2 >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t2 = 1;
+            }
+
+            t2 -= Time.deltaTime;
+            yield return null;
+        }
         StartCoroutine(GetToGirlGame());
     }
 
@@ -173,8 +249,20 @@ public class Main : MonoBehaviour
         yield return new WaitForSeconds(5);
         Destroy(AdminCanvas);
         gameStarterAnimator.enabled = false;
-        gameStarterImage.enabled = false;
-        yield return new WaitForSeconds(SoundHandler.sound.eb.length - 9);
+        gameStarterImage.enabled = false;        
+        var t = SoundHandler.sound.eb.length - 9;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
         StartCoroutine(GetToGirlGame());
     }
 
@@ -193,31 +281,103 @@ public class Main : MonoBehaviour
         if (StoryHandler.fixedGame)
         {
             SoundHandler.sound.Play(SoundHandler.sound.fa);
-            yield return new WaitForSeconds(SoundHandler.sound.fa.length);
+            var t = SoundHandler.sound.fa.length;
+            skipButton.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
         }
         else
         {
             SoundHandler.sound.Play(SoundHandler.sound.fba);
-            yield return new WaitForSeconds(SoundHandler.sound.fba.length);
+            var t = SoundHandler.sound.fba.length;
+            skipButton.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
             
             if (StoryHandler.madeSignFall && StoryHandler.scrambledSign)
             {
                 SoundHandler.sound.Play(SoundHandler.sound.fbba);
-                yield return new WaitForSeconds(SoundHandler.sound.fbba.length);
+                var t1 = SoundHandler.sound.fbba.length;
+                skipButton.PopupSkipButton(t1);
+                while (t1 >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t1 = 1;
+                    }
+
+                    t1 -= Time.deltaTime;
+                    yield return null;
+                }
             }
             if (StoryHandler.madeSignFall && !StoryHandler.scrambledSign)
             {
                 SoundHandler.sound.Play(SoundHandler.sound.fbbb);
-                yield return new WaitForSeconds(SoundHandler.sound.fbbb.length);
+                var t2 = SoundHandler.sound.fbbb.length;
+                skipButton.PopupSkipButton(t2);
+                while (t2 >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t2 = 1;
+                    }
+
+                    t2 -= Time.deltaTime;
+                    yield return null;
+                }
             }
             if (!StoryHandler.madeSignFall && StoryHandler.scrambledSign)
             {
-                SoundHandler.sound.Play(SoundHandler.sound.fbbc);
-                yield return new WaitForSeconds(SoundHandler.sound.fbbc.length);
+                SoundHandler.sound.Play(SoundHandler.sound.fbbc);                
+                var t3 = SoundHandler.sound.fbbc.length;
+                skipButton.PopupSkipButton(t3);
+                while (t3 >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t3 = 1;
+                    }
+
+                    t3 -= Time.deltaTime;
+                    yield return null;
+                }
             }
             
             SoundHandler.sound.Play(SoundHandler.sound.fbc);
-            yield return new WaitForSeconds(SoundHandler.sound.fbc.length);
+            var t4 = SoundHandler.sound.fbc.length;
+            skipButton.PopupSkipButton(t4);
+            while (t4 >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t4 = 1;
+                }
+
+                t4 -= Time.deltaTime;
+                yield return null;
+            }
         }
         
         infoBox.PopupInfoBox("YOU CAN NOW MOVE WITH \"WASD\"\nOR THE ARROW KEYS", 5);
@@ -227,7 +387,19 @@ public class Main : MonoBehaviour
     public IEnumerator EndGirlGame()
     {
         SoundHandler.sound.Play(SoundHandler.sound.g);
-        yield return new WaitForSeconds(SoundHandler.sound.g.length);
+        var t = SoundHandler.sound.g.length;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
         
         optionBox.PopupOptionBox("WHAT DO YOU THINK OF THE GAME?", "IT'S GREAT", "IT'S KIND OF BUGGY");
         while (optionBox.playerChoice == 0)
@@ -242,7 +414,19 @@ public class Main : MonoBehaviour
     private IEnumerator LikedGirlGame()
     {
         SoundHandler.sound.Play(SoundHandler.sound.ha);
-        yield return new WaitForSeconds(SoundHandler.sound.ha.length);
+        var t = SoundHandler.sound.ha.length;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
         
         yield return new WaitForSeconds(2f);
         
@@ -261,14 +445,40 @@ public class Main : MonoBehaviour
         if (StoryHandler.fixedGame)
         {
             SoundHandler.sound.Play(SoundHandler.sound.hba);
-            yield return new WaitForSeconds(SoundHandler.sound.hba.length);
+            var t = SoundHandler.sound.hba.length;
+            skipButton.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
+
             yield return new WaitForSeconds(2f);
             StartCoroutine(FixedGame());
         }
         else
         {
             SoundHandler.sound.Play(SoundHandler.sound.hbb);
-            yield return new WaitForSeconds(SoundHandler.sound.hbb.length);
+            var t = SoundHandler.sound.hbb.length;
+            skipButton.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
+
             RandomGame();
         }
     }
@@ -276,7 +486,19 @@ public class Main : MonoBehaviour
     private IEnumerator FixedGame()
     {
         SoundHandler.sound.Play(SoundHandler.sound.i);
-        yield return new WaitForSeconds(SoundHandler.sound.i.length);
+        var t = SoundHandler.sound.i.length;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
         
         optionBox.PopupOptionBox("DO YOU WANT TO GO WITH HIM?", "SURE", "NO, I'D RATHER STAY HERE");
         while (optionBox.playerChoice == 0)
@@ -295,12 +517,36 @@ public class Main : MonoBehaviour
         if (StoryHandler.madeSignFall && StoryHandler.scrambledSign)
         {
             SoundHandler.sound.Play(SoundHandler.sound.jb);
-            yield return new WaitForSeconds(SoundHandler.sound.jb.length);
+            var t = SoundHandler.sound.jb.length;
+            skipButton.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
         }
         else
         {
             SoundHandler.sound.Play(SoundHandler.sound.ja);
-            yield return new WaitForSeconds(SoundHandler.sound.ja.length);
+            var t = SoundHandler.sound.ja.length;
+            skipButton.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
         }
         
         yield return new WaitForSeconds(2f);
@@ -330,12 +576,36 @@ public class Main : MonoBehaviour
         if (StoryHandler.wentToGuyGame)
         {
             SoundHandler.sound.Play(SoundHandler.sound.la);
-            yield return new WaitForSeconds(SoundHandler.sound.la.length);
+            var t = SoundHandler.sound.la.length;
+            skipButton.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
         }
         else
         {
             SoundHandler.sound.Play(SoundHandler.sound.lb);
-            yield return new WaitForSeconds(SoundHandler.sound.lb.length);
+            var t = SoundHandler.sound.lb.length;
+            skipButton.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
         }
 
         SceneManager.LoadScene(3);
@@ -347,7 +617,19 @@ public class Main : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         SoundHandler.sound.Play(SoundHandler.sound.m);
-        yield return new WaitForSeconds(SoundHandler.sound.m.length);
+        var t = SoundHandler.sound.m.length;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
         
         optionBox.PopupOptionBox("WHAT DO YOU WANT TO DO?", "TELL HIM", "REMAIN SILENT");
         while (optionBox.playerChoice == 0)
@@ -361,16 +643,52 @@ public class Main : MonoBehaviour
         if (StoryHandler.saidName)
         {
             SoundHandler.sound.Play(SoundHandler.sound.na);
-            yield return new WaitForSeconds(SoundHandler.sound.na.length);
+            var t1 = SoundHandler.sound.na.length;
+            skipButton.PopupSkipButton(t);
+            while (t1 >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t1 = 1;
+                }
+
+                t1 -= Time.deltaTime;
+                yield return null;
+            }
         }
         else
         {
             SoundHandler.sound.Play(SoundHandler.sound.nb);
-            yield return new WaitForSeconds(SoundHandler.sound.nb.length);
+            var t2 = SoundHandler.sound.nb.length;
+            skipButton.PopupSkipButton(t2);
+            while (t2 >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t2 = 1;
+                }
+
+                t2 -= Time.deltaTime;
+                yield return null;
+            }
         }
         
         SoundHandler.sound.Play(SoundHandler.sound.o);
-        yield return new WaitForSeconds(SoundHandler.sound.o.length);
+        var t3 = SoundHandler.sound.o.length;
+        skipButton.PopupSkipButton(t3);
+        while (t3 >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t3 = 1;
+            }
+
+            t3 -= Time.deltaTime;
+            yield return null;
+        }
         
         infoBox.PopupInfoBox("TRY DRAGGING THE BLOCKS TO THE LIGHT", 5);
         ClickHandler.Active = true;
@@ -379,7 +697,19 @@ public class Main : MonoBehaviour
     public IEnumerator FinishFirstPuzzle()
     {
         SoundHandler.sound.Play(SoundHandler.sound.p);
-        yield return new WaitForSeconds(SoundHandler.sound.p.length);
+        var t = SoundHandler.sound.p.length;
+        skipButton.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
     }
     
     
