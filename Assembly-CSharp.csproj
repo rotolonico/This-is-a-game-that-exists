@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\GameStarter.cs" />
     <Compile Include="Assets\Scripts\GirlGame\GirlGameStarter.cs" />
     <Compile Include="Assets\Scripts\GirlGame\GPlayerController.cs" />
     <Compile Include="Assets\Scripts\GirlGame\LetterHolder.cs" />

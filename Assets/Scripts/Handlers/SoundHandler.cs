@@ -49,7 +49,6 @@ namespace Handlers
         {
             DontDestroyOnLoad(gameObject);
             sound = gameObject.GetComponent<SoundHandler>();
-            gameObject.GetComponent<Main>().Initialize();
         }
     
         public void Play(AudioClip audioClip)

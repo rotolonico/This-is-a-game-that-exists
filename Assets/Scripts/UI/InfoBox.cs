@@ -19,10 +19,10 @@ namespace UI
         {
             infoText.text = text;
             animator.Play("Popup");
-            StartCoroutine(PopdownInfoBox(time));
+            if (time > 0) StartCoroutine(PopdownInfoBox(time));
         }
 
-        private IEnumerator PopdownInfoBox(float time)
+        public IEnumerator PopdownInfoBox(float time)
         {
             yield return new WaitForSeconds(time);
             animator.Play("Popdown");
