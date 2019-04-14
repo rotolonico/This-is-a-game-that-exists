@@ -13,7 +13,6 @@ public class Main : MonoBehaviour
     public static bool Skip;
     public static bool isSkipMode;
     
-    public Button SignTrigger;
     public GameObject GameStarter;
     public GameObject AdminCanvas;
     public GameObject AdminWindowTrigger;
@@ -22,50 +21,67 @@ public class Main : MonoBehaviour
     public Sprite AdminCheckMarkChecked;
     public InfoBox infoBox;
     public OptionBox optionBox;
-    public SkipButton skipButton;
+    public SkipButton skipButtonScript;
 
     private bool adminCheckMarkCheckedBool;
 
+    private Button signTrigger;
     private GameObject[] titleLetters;
     private GameObject[] letterHolders;
     public Image gameStarterImage;
     private Animator gameStarterAnimator;
+    private Button normalButton;
+    private Button skipButton;
 
     private void Start()
     {
+        normalButton = GameObject.Find("NormalMode").GetComponent<Button>();
+        skipButton = GameObject.Find("SkipMode").GetComponent<Button>();
         gameStarterImage = GameStarter.GetComponent<Image>();
         gameStarterAnimator = GameStarter.GetComponent<Animator>();
     }
 
     public void HoverNormalMode()
     {
-        infoBox.PopupInfoBox("PLAY THE GAME NORMALLY", -1);
+        if (normalButton.interactable) infoBox.PopupInfoBox("PLAY THE GAME NORMALLY", -1);
     }
     
     public void HoverSkipMode()
     {
-        infoBox.PopupInfoBox("PLAY THE GAME BEING ABLE TO SKIP DIALOGUES", -1);
+        if (skipButton.interactable) infoBox.PopupInfoBox("PLAY THE GAME BEING ABLE TO SKIP DIALOGUES", -1);
     }
     
     public void HoverExitNormalMode()
     {
-        StartCoroutine(infoBox.PopdownInfoBox(0));
+        if (normalButton.interactable) StartCoroutine(infoBox.PopdownInfoBox(0));
     }
     
     public void HoverExitSkipMode()
     {
-        StartCoroutine(infoBox.PopdownInfoBox(0));
+        if (skipButton.interactable) StartCoroutine(infoBox.PopdownInfoBox(0));
     }
 
     public void NormalMode()
     {
         isSkipMode = false;
-        SceneManager.LoadScene(1);
+        StartCoroutine(StartGame());
     }
     
     public void SkipMode()
     {
         isSkipMode = true;
+        StartCoroutine(StartGame());
+    }
+
+    private IEnumerator StartGame()
+    {
+        normalButton.interactable = false;
+        skipButton.interactable = false;
+        SoundHandler.sound.Play(SoundHandler.sound.loadingSound);
+        gameStarterImage.enabled = true;
+        gameStarterAnimator.enabled = true;
+        gameStarterAnimator.Play("Opacity100");
+        yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
         SceneManager.LoadScene(1);
     }
     
@@ -75,12 +91,13 @@ public class Main : MonoBehaviour
         StartCoroutine(AfterIntroduction());
         titleLetters = GameObject.FindGameObjectsWithTag("TitleLetter");
         letterHolders = GameObject.FindGameObjectsWithTag("LetterHolder");
+        signTrigger = GameObject.Find("SignTrigger").GetComponent<Button>();
     }
 
     private IEnumerator AfterIntroduction()
     {
         var t = SoundHandler.sound.a.length;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)
@@ -94,14 +111,14 @@ public class Main : MonoBehaviour
         }
 
         infoBox.PopupInfoBox("THIS GAME HAS MULTIPLE ENDINGS\nEVERYTHING YOU DO WILL AFFECT THE STORYLINE", 5);
-        SignTrigger.interactable = true;
+        signTrigger.interactable = true;
         StartCoroutine(nameof(AfterLoadingGame));
     }
 
     private IEnumerator AfterLoadingGame()
     {
         yield return new WaitForSeconds(10f);
-        Destroy(SignTrigger.gameObject);
+        Destroy(signTrigger.gameObject);
         SoundHandler.sound.Play(SoundHandler.sound.bba);
         StartCoroutine(AfterTakingLonger());
     }
@@ -109,7 +126,7 @@ public class Main : MonoBehaviour
     private IEnumerator AfterTakingLonger()
     {
         var t = SoundHandler.sound.bba.length + 3;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)
@@ -131,7 +148,7 @@ public class Main : MonoBehaviour
         {
             StoryHandler.madeSignFall = true;
             sound = SoundHandler.sound.ba;
-            Destroy(SignTrigger.gameObject);
+            Destroy(signTrigger.gameObject);
         }
         else
         {
@@ -153,7 +170,7 @@ public class Main : MonoBehaviour
     private IEnumerator AfterSignFalls(float soundLength)
     {
         var t = soundLength;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)
@@ -210,7 +227,7 @@ public class Main : MonoBehaviour
             }
         }
         var t = sound.length;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)
@@ -229,7 +246,7 @@ public class Main : MonoBehaviour
     {
         SoundHandler.sound.Play(SoundHandler.sound.da);
         var t = SoundHandler.sound.da.length;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)
@@ -248,7 +265,7 @@ public class Main : MonoBehaviour
         Destroy(AdminCanvas);
         SoundHandler.sound.Play(SoundHandler.sound.ea);
         var t2 = SoundHandler.sound.ea.length;
-        if (isSkipMode) skipButton.PopupSkipButton(t2);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
         while (t2 >= 0)
         {
             if (Skip)
@@ -288,7 +305,7 @@ public class Main : MonoBehaviour
         gameStarterAnimator.enabled = false;
         gameStarterImage.enabled = false;        
         var t = SoundHandler.sound.eb.length - 9;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)
@@ -319,7 +336,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.fa);
             var t = SoundHandler.sound.fa.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
             while (t >= 0)
             {
                 if (Skip)
@@ -336,7 +353,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.fba);
             var t = SoundHandler.sound.fba.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
             while (t >= 0)
             {
                 if (Skip)
@@ -353,7 +370,7 @@ public class Main : MonoBehaviour
             {
                 SoundHandler.sound.Play(SoundHandler.sound.fbba);
                 var t1 = SoundHandler.sound.fbba.length;
-                if (isSkipMode) skipButton.PopupSkipButton(t1);
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
                 while (t1 >= 0)
                 {
                     if (Skip)
@@ -370,7 +387,7 @@ public class Main : MonoBehaviour
             {
                 SoundHandler.sound.Play(SoundHandler.sound.fbbb);
                 var t2 = SoundHandler.sound.fbbb.length;
-                if (isSkipMode) skipButton.PopupSkipButton(t2);
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
                 while (t2 >= 0)
                 {
                     if (Skip)
@@ -387,7 +404,7 @@ public class Main : MonoBehaviour
             {
                 SoundHandler.sound.Play(SoundHandler.sound.fbbc);                
                 var t3 = SoundHandler.sound.fbbc.length;
-                if (isSkipMode) skipButton.PopupSkipButton(t3);
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t3);
                 while (t3 >= 0)
                 {
                     if (Skip)
@@ -403,7 +420,7 @@ public class Main : MonoBehaviour
             
             SoundHandler.sound.Play(SoundHandler.sound.fbc);
             var t4 = SoundHandler.sound.fbc.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t4);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t4);
             while (t4 >= 0)
             {
                 if (Skip)
@@ -425,7 +442,7 @@ public class Main : MonoBehaviour
     {
         SoundHandler.sound.Play(SoundHandler.sound.g);
         var t = SoundHandler.sound.g.length;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)
@@ -452,7 +469,7 @@ public class Main : MonoBehaviour
     {
         SoundHandler.sound.Play(SoundHandler.sound.ha);
         var t = SoundHandler.sound.ha.length;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)
@@ -483,7 +500,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.hba);
             var t = SoundHandler.sound.hba.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
             while (t >= 0)
             {
                 if (Skip)
@@ -503,7 +520,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.hbb);
             var t = SoundHandler.sound.hbb.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
             while (t >= 0)
             {
                 if (Skip)
@@ -524,7 +541,7 @@ public class Main : MonoBehaviour
     {
         SoundHandler.sound.Play(SoundHandler.sound.i);
         var t = SoundHandler.sound.i.length;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)
@@ -555,7 +572,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.jb);
             var t = SoundHandler.sound.jb.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
             while (t >= 0)
             {
                 if (Skip)
@@ -572,7 +589,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.ja);
             var t = SoundHandler.sound.ja.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
             while (t >= 0)
             {
                 if (Skip)
@@ -614,7 +631,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.la);
             var t = SoundHandler.sound.la.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
             while (t >= 0)
             {
                 if (Skip)
@@ -631,7 +648,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.lb);
             var t = SoundHandler.sound.lb.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
             while (t >= 0)
             {
                 if (Skip)
@@ -655,7 +672,7 @@ public class Main : MonoBehaviour
         yield return new WaitForSeconds(1f);
         SoundHandler.sound.Play(SoundHandler.sound.m);
         var t = SoundHandler.sound.m.length;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)
@@ -681,7 +698,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.na);
             var t1 = SoundHandler.sound.na.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
             while (t1 >= 0)
             {
                 if (Skip)
@@ -698,7 +715,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.nb);
             var t2 = SoundHandler.sound.nb.length;
-            if (isSkipMode) skipButton.PopupSkipButton(t2);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
             while (t2 >= 0)
             {
                 if (Skip)
@@ -714,7 +731,7 @@ public class Main : MonoBehaviour
         
         SoundHandler.sound.Play(SoundHandler.sound.o);
         var t3 = SoundHandler.sound.o.length;
-        if (isSkipMode) skipButton.PopupSkipButton(t3);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t3);
         while (t3 >= 0)
         {
             if (Skip)
@@ -735,7 +752,7 @@ public class Main : MonoBehaviour
     {
         SoundHandler.sound.Play(SoundHandler.sound.p);
         var t = SoundHandler.sound.p.length;
-        if (isSkipMode) skipButton.PopupSkipButton(t);
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
             if (Skip)

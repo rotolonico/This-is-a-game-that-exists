@@ -2101,7 +2101,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1241590149
 RectTransform:
@@ -2919,7 +2919,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0bfd2da712233c39921019dbb38190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SignTrigger: {fileID: 0}
   GameStarter: {fileID: 859160214}
   AdminCanvas: {fileID: 816048825}
   AdminWindowTrigger: {fileID: 1832910186}
@@ -2929,7 +2928,7 @@ MonoBehaviour:
     type: 3}
   infoBox: {fileID: 844381756}
   optionBox: {fileID: 1476895794}
-  skipButton: {fileID: 943178412}
+  skipButtonScript: {fileID: 943178412}
   gameStarterImage: {fileID: 0}
 --- !u!114 &1572989637
 MonoBehaviour:

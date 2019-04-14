@@ -57,10 +57,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\GameStarter.cs" />
     <Compile Include="Assets\Scripts\GirlGame\GirlGameStarter.cs" />
     <Compile Include="Assets\Scripts\GirlGame\GPlayerController.cs" />
     <Compile Include="Assets\Scripts\GirlGame\LetterHolder.cs" />
+    <Compile Include="Assets\Scripts\GuyGame\GameStarter.cs" />
+    <Compile Include="Assets\Scripts\GuyGame\SignTrigger.cs" />
     <Compile Include="Assets\Scripts\Handlers\ClickHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\Draggable.cs" />
     <Compile Include="Assets\Scripts\Handlers\SoundHandler.cs" />
