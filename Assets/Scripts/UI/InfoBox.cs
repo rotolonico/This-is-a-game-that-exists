@@ -11,8 +11,8 @@ namespace UI
 
         private void Start()
         {
-            infoText = gameObject.GetComponentInChildren<Text>();
-            animator = gameObject.GetComponent<Animator>();
+            infoText = GetComponentInChildren<Text>();
+            animator = GetComponent<Animator>();
         }
 
         public void PopupInfoBox(string text, float time)

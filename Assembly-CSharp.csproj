@@ -70,9 +70,13 @@
     <Compile Include="Assets\Scripts\RandomGame\Laser.cs" />
     <Compile Include="Assets\Scripts\RandomGame\RandomGameLoadingStarter.cs" />
     <Compile Include="Assets\Scripts\RandomGame\RandomGameStarter.cs" />
+    <Compile Include="Assets\Scripts\RandomGame\RandomGameStarter2.cs" />
     <Compile Include="Assets\Scripts\RandomGame\Square.cs" />
     <Compile Include="Assets\Scripts\RandomGame\SquareHolder.cs" />
     <Compile Include="Assets\Scripts\RandomGame\SquareLight.cs" />
+    <Compile Include="Assets\Scripts\SimonGame\SCollider.cs" />
+    <Compile Include="Assets\Scripts\SimonGame\SimonGameStarter.cs" />
+    <Compile Include="Assets\Scripts\SimonGame\SPlayerController.cs" />
     <Compile Include="Assets\Scripts\UI\InfoBox.cs" />
     <Compile Include="Assets\Scripts\UI\OptionBox.cs" />
     <Compile Include="Assets\Scripts\UI\SkipButton.cs" />

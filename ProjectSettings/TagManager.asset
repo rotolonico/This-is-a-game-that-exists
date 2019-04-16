@@ -10,6 +10,8 @@ TagManager:
   - GEnd
   - Square
   - SquareHolder
+  - SRed
+  - Sstart
   layers:
   - Default
   - TransparentFX

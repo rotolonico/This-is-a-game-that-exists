@@ -21,8 +21,8 @@ namespace GirlGame
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!active || filled || !other.gameObject.CompareTag("TitleLetter") || other.gameObject.GetComponent<Rigidbody2D>() == ClickHandler.DraggedColliderRb) return;
-            letterRb = other.gameObject.GetComponent<Rigidbody2D>();
+            if (!active || filled || !other.CompareTag("TitleLetter") || other.gameObject.GetComponent<Rigidbody2D>() == ClickHandler.DraggedColliderRb) return;
+            letterRb = other.GetComponent<Rigidbody2D>();
             filled = true;
             var otherTransform = other.transform;
             otherTransform.position = transform.position;

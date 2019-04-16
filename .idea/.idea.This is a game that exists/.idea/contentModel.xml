@@ -27,9 +27,15 @@
             <e p="Laser.cs" t="Include" />
             <e p="RandomGameLoadingStarter.cs" t="Include" />
             <e p="RandomGameStarter.cs" t="Include" />
+            <e p="RandomGameStarter2.cs" t="Include" />
             <e p="Square.cs" t="Include" />
             <e p="SquareHolder.cs" t="Include" />
             <e p="SquareLight.cs" t="Include" />
+          </e>
+          <e p="SimonGame" t="Include">
+            <e p="SCollider.cs" t="Include" />
+            <e p="SPlayerController.cs" t="Include" />
+            <e p="SimonGameStarter.cs" t="Include" />
           </e>
           <e p="UI" t="Include">
             <e p="InfoBox.cs" t="Include" />

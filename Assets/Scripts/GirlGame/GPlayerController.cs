@@ -12,7 +12,7 @@ namespace GirlGame
 
         private void Start()
         {
-            rb = gameObject.GetComponent<Rigidbody2D>();
+            rb = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
@@ -25,8 +25,8 @@ namespace GirlGame
             if (!other.CompareTag("GEnd")) return;
             StartCoroutine(GameObject.Find("MainHandler").GetComponent<Main>().EndGirlGame());
             activated = false;
-            gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().color = Color.clear;
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }

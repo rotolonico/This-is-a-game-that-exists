@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GirlGame;
 using Handlers;
+using SimonGame;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,7 +30,7 @@ public class Main : MonoBehaviour
     private GameObject[] titleLetters;
     private GameObject[] letterHolders;
     public Image gameStarterImage;
-    private Animator gameStarterAnimator;
+    public Animator gameStarterAnimator;
     private Button normalButton;
     private Button skipButton;
 
@@ -299,7 +300,9 @@ public class Main : MonoBehaviour
         StoryHandler.fixedGame = true;
         SoundHandler.sound.Play(SoundHandler.sound.eb);
         yield return new WaitForSeconds(4);
-        gameStarterAnimator.Play("Opacity100");
+        gameStarterAnimator.enabled = true;
+        gameStarterImage.enabled = true;
+        gameStarterAnimator.Play("Opacity100RE");
         yield return new WaitForSeconds(5);
         Destroy(AdminCanvas);
         gameStarterAnimator.enabled = false;
@@ -467,6 +470,7 @@ public class Main : MonoBehaviour
 
     private IEnumerator LikedGirlGame()
     {
+        StoryHandler.likedGirlGame = true;
         SoundHandler.sound.Play(SoundHandler.sound.ha);
         var t = SoundHandler.sound.ha.length;
         if (isSkipMode) skipButtonScript.PopupSkipButton(t);
@@ -667,6 +671,7 @@ public class Main : MonoBehaviour
     
     public IEnumerator StartRandomGame()
     {
+        optionBox.playerChoice = 0;
         ClickHandler.Active = false;
         
         yield return new WaitForSeconds(1f);
@@ -698,7 +703,7 @@ public class Main : MonoBehaviour
         {
             SoundHandler.sound.Play(SoundHandler.sound.na);
             var t1 = SoundHandler.sound.na.length;
-            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
             while (t1 >= 0)
             {
                 if (Skip)
@@ -750,6 +755,11 @@ public class Main : MonoBehaviour
 
     public IEnumerator FinishFirstPuzzle()
     {
+        foreach (var square in GameObject.FindGameObjectsWithTag("Square"))
+        {
+            square.GetComponent<BoxCollider2D>().enabled = false;
+        }
+        
         SoundHandler.sound.Play(SoundHandler.sound.p);
         var t = SoundHandler.sound.p.length;
         if (isSkipMode) skipButtonScript.PopupSkipButton(t);
@@ -764,6 +774,268 @@ public class Main : MonoBehaviour
             t -= Time.deltaTime;
             yield return null;
         }
+
+        var sound = SoundHandler.sound.qb;
+        if (StoryHandler.likedGirlGame) sound = SoundHandler.sound.qa;
+        
+        SoundHandler.sound.Play(sound);
+        var t1 = sound.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+        while (t1 >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t1 = 1;
+            }
+
+            t1 -= Time.deltaTime;
+            yield return null;
+        }
+
+
+        if (StoryHandler.madeSignFall && StoryHandler.scrambledSign && !StoryHandler.wentToGuyGame)
+        {
+            sound = SoundHandler.sound.rb;
+        }
+        else
+        {
+            sound = SoundHandler.sound.ra;
+        }
+        
+        SoundHandler.sound.Play(sound);
+        var t2 = sound.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
+        while (t2 >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t2 = 1;
+            }
+
+            t2 -= Time.deltaTime;
+            yield return null;
+        }
+
+        infoBox.PopupInfoBox(StoryHandler.likedGirlGame ? "PAUL LEFT THE GAME" : "SERENA AND PAUL LEFT THE GAME",6);
+
+        optionBox.playerChoice = 0;
+            
+        yield return new WaitForSeconds(2);
+        SoundHandler.sound.Play(SoundHandler.sound.s);
+        var t3 = SoundHandler.sound.s.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t3);
+        while (t3 >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t3 = 1;
+            }
+
+            t3 -= Time.deltaTime;
+            yield return null;
+        }
+        
+        optionBox.PopupOptionBox("WHAT DO YOU WANT TO DO?", "GO WITH SIMON", "STAY WITH DAVE");
+        while (optionBox.playerChoice == 0)
+        {
+            yield return null;
+        }
+
+        sound = optionBox.playerChoice == 1 ? SoundHandler.sound.ta : SoundHandler.sound.tb;
+        optionBox.playerChoice = 0;
+        
+        SoundHandler.sound.Play(sound);
+        var t4 = sound.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t4);
+        while (t4 >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t4 = 1;
+            }
+
+            t4 -= Time.deltaTime;
+            yield return null;
+        }
+        
+        SoundHandler.sound.PlaySecondary(SoundHandler.sound.loadingSound);
+        gameStarterImage.enabled = true;
+        gameStarterAnimator.enabled = true;
+        gameStarterAnimator.Play("Opacity100BL");
+        yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
+        SceneManager.LoadScene(5);
+    }
+
+    public IEnumerator StartSimonGame()
+    {
+        SoundHandler.sound.Play(SoundHandler.sound.u);
+        var t = SoundHandler.sound.v.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
+        
+        infoBox.PopupInfoBox("YOU CAN NOW MOVE WITH \"WASD\"\nOR THE ARROW KEYS", 5);
+        GameObject.Find("Player").GetComponent<SPlayerController>().isActive = true;
+
+        if (!StoryHandler.likedGirlGame) yield break;
+        SoundHandler.sound.Play(SoundHandler.sound.ua);
+        var t1 = SoundHandler.sound.ua.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+        while (t1 >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t1 = 1;
+            }
+
+            t1 -= Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public IEnumerator FinishSimonGame()
+    {
+        SoundHandler.sound.Play(SoundHandler.sound.v);
+        var t = SoundHandler.sound.v.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
+        
+        SoundHandler.sound.PlaySecondary(SoundHandler.sound.loadingSound);
+        gameStarterImage.enabled = true;
+        gameStarterAnimator.enabled = true;
+        gameStarterAnimator.Play("Opacity100B");
+        yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
+        SceneManager.LoadScene(6);
+    }
+
+    public IEnumerator StartRandomGame2()
+    {
+        optionBox.playerChoice = 0;
+        
+        SoundHandler.sound.Play(SoundHandler.sound.w);
+        var t = SoundHandler.sound.w.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
+        
+        optionBox.PopupOptionBox("WHAT DO YOU WANT TO SAY?", "I LIKED IT", "YOUR GAME IS BETTER");
+        while (optionBox.playerChoice == 0)
+        {
+            yield return null;
+        }
+
+        if (optionBox.playerChoice == 1)
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.xb);
+            var t1 = SoundHandler.sound.xb.length;
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+            while (t1 >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t1 = 1;
+                }
+
+                t1 -= Time.deltaTime;
+                yield return null;
+            }
+            
+            if (StoryHandler.likedGirlGame)
+            {
+                SoundHandler.sound.Play(SoundHandler.sound.xba);
+                var t2 = SoundHandler.sound.ua.length;
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
+                while (t2 >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t2 = 1;
+                    }
+
+                    t2 -= Time.deltaTime;
+                    yield return null;
+                }
+            }
+            
+            SoundHandler.sound.PlaySecondary(SoundHandler.sound.loadingSound);
+            gameStarterImage.enabled = true;
+            gameStarterAnimator.enabled = true;
+            gameStarterAnimator.Play("Opacity100P");
+            yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
+            SceneManager.LoadScene(7);
+        }
+        else
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.xa);
+            var t1 = SoundHandler.sound.xa.length;
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+            while (t1 >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t1 = 1;
+                }
+
+                t1 -= Time.deltaTime;
+                yield return null;
+            }
+
+            if (StoryHandler.likedGirlGame)
+            {
+                SoundHandler.sound.Play(SoundHandler.sound.xaa);
+                var t2 = SoundHandler.sound.ua.length;
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
+                while (t2 >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t2 = 1;
+                    }
+
+                    t2 -= Time.deltaTime;
+                    yield return null;
+                }
+            }
+        }
+        
+        optionBox.playerChoice = 0;
     }
     
     

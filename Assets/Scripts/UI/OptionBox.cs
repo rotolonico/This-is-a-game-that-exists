@@ -16,7 +16,7 @@ namespace UI
 
         private void Start()
         {
-            animator = gameObject.GetComponent<Animator>();
+            animator = GetComponent<Animator>();
         }
 
         public void PopupOptionBox(string info, string option1, string option2)

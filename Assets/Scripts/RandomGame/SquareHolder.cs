@@ -22,8 +22,8 @@ namespace RandomGame
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (filled || !other.gameObject.CompareTag("Square") || other.gameObject.GetComponent<Rigidbody2D>() == ClickHandler.DraggedColliderRb) return;
-            squareRb = other.gameObject.GetComponent<Rigidbody2D>();
+            if (filled || !other.CompareTag("Square") || other.gameObject.GetComponent<Rigidbody2D>() == ClickHandler.DraggedColliderRb) return;
+            squareRb = other.GetComponent<Rigidbody2D>();
             filled = true;
             var otherTransform = other.transform;
             otherTransform.position = (Vector2) transform.position;

@@ -37,6 +37,21 @@ namespace Handlers
         public AudioClip nb;
         public AudioClip o;
         public AudioClip p;
+        public AudioClip qa;
+        public AudioClip qb;
+        public AudioClip ra;
+        public AudioClip rb;
+        public AudioClip s;
+        public AudioClip ta;
+        public AudioClip tb;
+        public AudioClip u;
+        public AudioClip ua;
+        public AudioClip v;
+        public AudioClip w;
+        public AudioClip xa;
+        public AudioClip xaa;
+        public AudioClip xb;
+        public AudioClip xba;
 
         public AudioClip loadingSound;
         public AudioClip squareWhite;
@@ -48,7 +63,7 @@ namespace Handlers
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
-            sound = gameObject.GetComponent<SoundHandler>();
+            sound = GetComponent<SoundHandler>();
         }
     
         public void Play(AudioClip audioClip)

@@ -10,7 +10,7 @@ namespace RandomGame
 
         private void Start()
         {
-            sr = gameObject.GetComponent<SpriteRenderer>();
+            sr = GetComponent<SpriteRenderer>();
         }
 
         public void ChangeColor(string newColor)
