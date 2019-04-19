@@ -38,6 +38,7 @@
             <e p="SimonGameStarter.cs" t="Include" />
           </e>
           <e p="UI" t="Include">
+            <e p="GiveUpButton.cs" t="Include" />
             <e p="InfoBox.cs" t="Include" />
             <e p="OptionBox.cs" t="Include" />
             <e p="SkipButton.cs" t="Include" />

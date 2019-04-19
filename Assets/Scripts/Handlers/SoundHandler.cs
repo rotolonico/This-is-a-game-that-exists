@@ -37,25 +37,31 @@ namespace Handlers
         public AudioClip nb;
         public AudioClip o;
         public AudioClip p;
+        public AudioClip pa;
         public AudioClip qa;
         public AudioClip qb;
         public AudioClip ra;
         public AudioClip rb;
         public AudioClip s;
         public AudioClip ta;
+        public AudioClip taa;
         public AudioClip tb;
+        public AudioClip tba;
         public AudioClip u;
         public AudioClip ua;
         public AudioClip v;
         public AudioClip w;
+        public AudioClip wa;
         public AudioClip xa;
         public AudioClip xaa;
         public AudioClip xb;
         public AudioClip xba;
+        public AudioClip y;
 
         public AudioClip loadingSound;
         public AudioClip squareWhite;
         public AudioClip squareColor;
+        public AudioClip laser;
 
         public AudioSource audioSource;
         public AudioSource secondaryAudioSource;

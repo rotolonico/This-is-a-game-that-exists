@@ -12,6 +12,7 @@ using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
     public static bool Skip;
+    public static bool GiveUp;
     public static bool isSkipMode;
     
     public GameObject GameStarter;
@@ -23,8 +24,10 @@ public class Main : MonoBehaviour
     public InfoBox infoBox;
     public OptionBox optionBox;
     public SkipButton skipButtonScript;
+    public GiveUpButton giveUpButtonScript;
 
     private bool adminCheckMarkCheckedBool;
+    private bool onFirstPuzzle;
 
     private Button signTrigger;
     private GameObject[] titleLetters;
@@ -33,13 +36,28 @@ public class Main : MonoBehaviour
     public Animator gameStarterAnimator;
     private Button normalButton;
     private Button skipButton;
+    private Camera mainCamera;
 
     private void Start()
     {
+        mainCamera = Camera.main;
         normalButton = GameObject.Find("NormalMode").GetComponent<Button>();
         skipButton = GameObject.Find("SkipMode").GetComponent<Button>();
         gameStarterImage = GameStarter.GetComponent<Image>();
         gameStarterAnimator = GameStarter.GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        if (GiveUp)
+        {
+            if (onFirstPuzzle)
+            {
+                StartCoroutine(FinishFirstPuzzle(true));
+                onFirstPuzzle = false;
+                GiveUp = false;
+            }
+        }
     }
 
     public void HoverNormalMode()
@@ -750,18 +768,22 @@ public class Main : MonoBehaviour
         }
         
         infoBox.PopupInfoBox("TRY DRAGGING THE BLOCKS TO THE LIGHT", 5);
+        giveUpButtonScript.PopdownGiveUpButton();
+        onFirstPuzzle = true;
         ClickHandler.Active = true;
     }
 
-    public IEnumerator FinishFirstPuzzle()
+    public IEnumerator FinishFirstPuzzle(bool failed = false)
     {
+        if (!failed) giveUpButtonScript.PopupGiveUpButton();
         foreach (var square in GameObject.FindGameObjectsWithTag("Square"))
         {
             square.GetComponent<BoxCollider2D>().enabled = false;
         }
-        
-        SoundHandler.sound.Play(SoundHandler.sound.p);
-        var t = SoundHandler.sound.p.length;
+
+        if (failed) StoryHandler.gaveUpFirstPuzzle = true;
+        SoundHandler.sound.Play(failed ? SoundHandler.sound.pa : SoundHandler.sound.p);
+        var t = failed ? SoundHandler.sound.pa.length : SoundHandler.sound.p.length;
         if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
@@ -861,6 +883,22 @@ public class Main : MonoBehaviour
             t4 -= Time.deltaTime;
             yield return null;
         }
+
+        sound = failed ? SoundHandler.sound.taa : SoundHandler.sound.tba;
+        SoundHandler.sound.Play(sound);
+        var t5 = sound.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t5);
+        while (t5 >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t5 = 1;
+            }
+
+            t5 -= Time.deltaTime;
+            yield return null;
+        }
         
         SoundHandler.sound.PlaySecondary(SoundHandler.sound.loadingSound);
         gameStarterImage.enabled = true;
@@ -929,15 +967,168 @@ public class Main : MonoBehaviour
         gameStarterAnimator.enabled = true;
         gameStarterAnimator.Play("Opacity100B");
         yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
+        mainCamera.transform.position = new Vector3(0, 0, -10);
         SceneManager.LoadScene(6);
     }
 
     public IEnumerator StartRandomGame2()
     {
+        ClickHandler.Active = false;
         optionBox.playerChoice = 0;
-        
-        SoundHandler.sound.Play(SoundHandler.sound.w);
-        var t = SoundHandler.sound.w.length;
+
+        if (!StoryHandler.gaveUpFirstPuzzle)
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.w);
+            var t = SoundHandler.sound.w.length;
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
+
+            optionBox.PopupOptionBox("WHAT DO YOU WANT TO SAY?", "I LIKED IT", "YOUR GAME IS BETTER");
+            while (optionBox.playerChoice == 0)
+            {
+                yield return null;
+            }
+
+            if (optionBox.playerChoice == 1)
+            {
+                SoundHandler.sound.Play(SoundHandler.sound.xb);
+                var t1 = SoundHandler.sound.xb.length;
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+                while (t1 >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t1 = 1;
+                    }
+
+                    t1 -= Time.deltaTime;
+                    yield return null;
+                }
+
+                if (StoryHandler.likedGirlGame)
+                {
+                    SoundHandler.sound.Play(SoundHandler.sound.xba);
+                    var t2 = SoundHandler.sound.ua.length;
+                    if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
+                    while (t2 >= 0)
+                    {
+                        if (Skip)
+                        {
+                            Skip = false;
+                            t2 = 1;
+                        }
+
+                        t2 -= Time.deltaTime;
+                        yield return null;
+                    }
+                }
+
+                SoundHandler.sound.PlaySecondary(SoundHandler.sound.loadingSound);
+                gameStarterImage.enabled = true;
+                gameStarterAnimator.enabled = true;
+                gameStarterAnimator.Play("Opacity100P");
+                yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
+                SceneManager.LoadScene(7);
+            }
+            else
+            {
+                SoundHandler.sound.Play(SoundHandler.sound.xa);
+                var t1 = SoundHandler.sound.xa.length;
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+                while (t1 >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t1 = 1;
+                    }
+
+                    t1 -= Time.deltaTime;
+                    yield return null;
+                }
+
+                if (StoryHandler.likedGirlGame)
+                {
+                    SoundHandler.sound.Play(SoundHandler.sound.xaa);
+                    var t2 = SoundHandler.sound.ua.length;
+                    if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
+                    while (t2 >= 0)
+                    {
+                        if (Skip)
+                        {
+                            Skip = false;
+                            t2 = 1;
+                        }
+
+                        t2 -= Time.deltaTime;
+                        yield return null;
+                    }
+                }
+
+                ClickHandler.Active = true;
+            }
+
+            optionBox.playerChoice = 0;
+        }
+        else
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.wa);
+            var t = SoundHandler.sound.wa.length;
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
+            
+            if (StoryHandler.likedGirlGame)
+            {
+                SoundHandler.sound.Play(SoundHandler.sound.xba);
+                var t1 = SoundHandler.sound.xba.length;
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+                while (t1 >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t1 = 1;
+                    }
+
+                    t1 -= Time.deltaTime;
+                    yield return null;
+                }
+            }
+
+            SoundHandler.sound.PlaySecondary(SoundHandler.sound.loadingSound);
+            gameStarterImage.enabled = true;
+            gameStarterAnimator.enabled = true;
+            gameStarterAnimator.Play("Opacity100P");
+            yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
+            SceneManager.LoadScene(7);
+        }
+    }
+
+    public IEnumerator FinishSecondPuzzle()
+    {
+        SoundHandler.sound.Play(SoundHandler.sound.y);
+        var t = SoundHandler.sound.y.length;
         if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
         {
@@ -951,91 +1142,12 @@ public class Main : MonoBehaviour
             yield return null;
         }
         
-        optionBox.PopupOptionBox("WHAT DO YOU WANT TO SAY?", "I LIKED IT", "YOUR GAME IS BETTER");
-        while (optionBox.playerChoice == 0)
-        {
-            yield return null;
-        }
-
-        if (optionBox.playerChoice == 1)
-        {
-            SoundHandler.sound.Play(SoundHandler.sound.xb);
-            var t1 = SoundHandler.sound.xb.length;
-            if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
-            while (t1 >= 0)
-            {
-                if (Skip)
-                {
-                    Skip = false;
-                    t1 = 1;
-                }
-
-                t1 -= Time.deltaTime;
-                yield return null;
-            }
-            
-            if (StoryHandler.likedGirlGame)
-            {
-                SoundHandler.sound.Play(SoundHandler.sound.xba);
-                var t2 = SoundHandler.sound.ua.length;
-                if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
-                while (t2 >= 0)
-                {
-                    if (Skip)
-                    {
-                        Skip = false;
-                        t2 = 1;
-                    }
-
-                    t2 -= Time.deltaTime;
-                    yield return null;
-                }
-            }
-            
-            SoundHandler.sound.PlaySecondary(SoundHandler.sound.loadingSound);
-            gameStarterImage.enabled = true;
-            gameStarterAnimator.enabled = true;
-            gameStarterAnimator.Play("Opacity100P");
-            yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
-            SceneManager.LoadScene(7);
-        }
-        else
-        {
-            SoundHandler.sound.Play(SoundHandler.sound.xa);
-            var t1 = SoundHandler.sound.xa.length;
-            if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
-            while (t1 >= 0)
-            {
-                if (Skip)
-                {
-                    Skip = false;
-                    t1 = 1;
-                }
-
-                t1 -= Time.deltaTime;
-                yield return null;
-            }
-
-            if (StoryHandler.likedGirlGame)
-            {
-                SoundHandler.sound.Play(SoundHandler.sound.xaa);
-                var t2 = SoundHandler.sound.ua.length;
-                if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
-                while (t2 >= 0)
-                {
-                    if (Skip)
-                    {
-                        Skip = false;
-                        t2 = 1;
-                    }
-
-                    t2 -= Time.deltaTime;
-                    yield return null;
-                }
-            }
-        }
-        
-        optionBox.playerChoice = 0;
+        SoundHandler.sound.PlaySecondary(SoundHandler.sound.loadingSound);
+        gameStarterImage.enabled = true;
+        gameStarterAnimator.enabled = true;
+        gameStarterAnimator.Play("Opacity100P");
+        yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
+        SceneManager.LoadScene(7);
     }
     
     

@@ -10,5 +10,6 @@ namespace Handlers
         public static bool likedGirlGame;
         public static bool wentToGuyGame;
         public static bool saidName;
+        public static bool gaveUpFirstPuzzle;
     }
 }
