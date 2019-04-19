@@ -10,6 +10,10 @@ namespace Handlers
         public static bool likedGirlGame;
         public static bool wentToGuyGame;
         public static bool saidName;
+        public static bool likedSimonGame;
         public static bool gaveUpFirstPuzzle;
+        public static bool leftEditor;
+        public static bool deletedPlayer;
+        public static bool likedGirlGameAgain;
     }
 }

@@ -57,6 +57,16 @@ namespace Handlers
         public AudioClip xb;
         public AudioClip xba;
         public AudioClip y;
+        public AudioClip za;
+        public AudioClip zb;
+        public AudioClip zc;
+        public AudioClip _a;
+        public AudioClip _aa;
+        public AudioClip _ba;
+        public AudioClip _bb;
+        public AudioClip _bc;
+        public AudioClip _ca;
+        public AudioClip _cb;
 
         public AudioClip loadingSound;
         public AudioClip squareWhite;

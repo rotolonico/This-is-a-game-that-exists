@@ -8,7 +8,9 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="GirlGame" t="Include">
+            <e p="EditorHandler.cs" t="Include" />
             <e p="GPlayerController.cs" t="Include" />
+            <e p="GirlGameEditorStarter.cs" t="Include" />
             <e p="GirlGameStarter.cs" t="Include" />
             <e p="LetterHolder.cs" t="Include" />
           </e>

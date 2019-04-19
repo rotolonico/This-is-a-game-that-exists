@@ -10,5 +10,10 @@ namespace RandomGame
             StartCoroutine(mainHandler.StartRandomGame2());
             mainHandler.gameStarterImage.enabled = false;
         }
+
+        public void EndGame()
+        {
+            StartCoroutine(GameObject.Find("MainHandler").GetComponent<Main>().FinishSecondPuzzle());
+        }
     }
 }

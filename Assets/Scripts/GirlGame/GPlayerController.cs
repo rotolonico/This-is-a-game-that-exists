@@ -4,15 +4,18 @@ namespace GirlGame
 {
     public class GPlayerController : MonoBehaviour
     {
-        private Rigidbody2D rb;
-
         public static bool activated;
+        public static bool editorMode;
 
         public int speed = 1000;
+        
+        private Rigidbody2D rb;
+        private Main main;
 
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
+            main = GameObject.Find("MainHandler").GetComponent<Main>();
         }
 
         private void Update()
@@ -23,7 +26,7 @@ namespace GirlGame
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("GEnd")) return;
-            StartCoroutine(GameObject.Find("MainHandler").GetComponent<Main>().EndGirlGame());
+            StartCoroutine(!editorMode ? main.EndGirlGame() : main.FinishEditor());
             activated = false;
             GetComponent<SpriteRenderer>().color = Color.clear;
             GetComponent<BoxCollider2D>().enabled = false;

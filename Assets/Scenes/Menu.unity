@@ -3343,6 +3343,16 @@ MonoBehaviour:
   xb: {fileID: 8300000, guid: 3567380933d222f8dba975dcf8f4c542, type: 3}
   xba: {fileID: 8300000, guid: bf0c809f339315c26909d7c50257bd24, type: 3}
   y: {fileID: 8300000, guid: f73540dbf2233034789d5cf03e3666dd, type: 3}
+  za: {fileID: 8300000, guid: 612c0f6f92999033b89a95c809ce24f8, type: 3}
+  zb: {fileID: 8300000, guid: c1f62dffe116d6089a19d31c233c3895, type: 3}
+  zc: {fileID: 8300000, guid: 19de54536bf1bcedf9f6453f458b984b, type: 3}
+  _a: {fileID: 8300000, guid: 132eabeaffe6a0826b2d478747e86c18, type: 3}
+  _aa: {fileID: 8300000, guid: 71f5418fc7ba2138a8c392d55bca928e, type: 3}
+  _ba: {fileID: 8300000, guid: 512f59c6061f82f5297a57c2629746f1, type: 3}
+  _bb: {fileID: 8300000, guid: 58522acd08c6914c6ae05d543f2e4497, type: 3}
+  _bc: {fileID: 8300000, guid: 2407e16c5a1c158e1bc90cfb07a841e4, type: 3}
+  _ca: {fileID: 8300000, guid: 35e6704bf39657bb984ec365707c1380, type: 3}
+  _cb: {fileID: 8300000, guid: 4a54bc783f8f7e79aa858462bdaa7c0a, type: 3}
   loadingSound: {fileID: 8300000, guid: 93d7ef49092e9aba59511ca3a4263fcb, type: 3}
   squareWhite: {fileID: 8300000, guid: 8b22c9f3bfbe761a48d27e5a9b32b62f, type: 3}
   squareColor: {fileID: 8300000, guid: 13bf6517b137df5758e707780c1c5d9f, type: 3}

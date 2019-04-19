@@ -73,7 +73,7 @@ namespace RandomGame
                 lineRenderer.SetPosition(1, new Vector3(hit.point.x, hit.point.y, transform.position.z));
             } else if (hit.collider && hit.collider.CompareTag("SquareTarget"))
             {
-                StartCoroutine(GameObject.Find("MainHandler").GetComponent<Main>().FinishSecondPuzzle());
+                GameObject.Find("RandomGameHandler2").GetComponent<RandomGameStarter2>().EndGame();
                 Destroy(GameObject.FindGameObjectWithTag("Square"));
                 GameObject.FindGameObjectWithTag("SquareTarget").GetComponent<Square>().ChangeColor("Green");
             }

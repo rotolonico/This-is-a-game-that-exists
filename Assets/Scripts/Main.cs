@@ -1001,6 +1001,7 @@ public class Main : MonoBehaviour
 
             if (optionBox.playerChoice == 1)
             {
+                StoryHandler.likedSimonGame = true;
                 SoundHandler.sound.Play(SoundHandler.sound.xb);
                 var t1 = SoundHandler.sound.xb.length;
                 if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
@@ -1148,6 +1149,225 @@ public class Main : MonoBehaviour
         gameStarterAnimator.Play("Opacity100P");
         yield return new WaitForSeconds(SoundHandler.sound.loadingSound.length);
         SceneManager.LoadScene(7);
+    }
+
+    public IEnumerator StartGirlGameEditor()
+    {
+        if (StoryHandler.likedGirlGame)
+        {
+            if (StoryHandler.gaveUpFirstPuzzle || StoryHandler.likedSimonGame)
+            {
+                SoundHandler.sound.Play(SoundHandler.sound.zc);
+                var t = SoundHandler.sound.zc.length;
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+                while (t >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t = 1;
+                    }
+
+                    t -= Time.deltaTime;
+                    yield return null;
+                }
+            }
+            else
+            {
+                SoundHandler.sound.Play(SoundHandler.sound.zb);
+                var t = SoundHandler.sound.zb.length;
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+                while (t >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t = 1;
+                    }
+
+                    t -= Time.deltaTime;
+                    yield return null;
+                }
+            }
+        }
+        else
+        {
+            SoundHandler.sound.Play(SoundHandler.sound.za);
+            var t = SoundHandler.sound.za.length;
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        infoBox.PopupInfoBox("LEFT CLICK TO PLACE WALLS\nRIGHT CLICK TO REMOVE WALLS", 8);
+        GameObject.Find("LeaveEditorButton").GetComponent<Button>().interactable = true;
+        EditorHandler.activated = true;
+        GPlayerController.activated = true;
+        GPlayerController.editorMode = true;
+    }
+
+    public IEnumerator LeaveEditor()
+    {
+        StoryHandler.leftEditor = true;
+        EditorHandler.activated = false;
+        GPlayerController.activated = false;
+        GPlayerController.editorMode = false;
+        
+        SoundHandler.sound.Play(SoundHandler.sound._a);
+        var t = SoundHandler.sound._a.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(GameObject.Find("LeaveEditorButton"));
+        
+        SoundHandler.sound.Play(SoundHandler.sound._aa);
+        var t1 = SoundHandler.sound._aa.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+        while (t1 >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t1 = 1;
+            }
+
+            t1 -= Time.deltaTime;
+            yield return null;
+        }
+        
+        EditorHandler.activated = true;
+        GPlayerController.activated = true;
+        GPlayerController.editorMode = true;
+    }
+
+    public IEnumerator DeletePlayer()
+    {
+        StoryHandler.deletedPlayer = true;
+        SoundHandler.sound.Play(SoundHandler.sound._ba);
+        var t = SoundHandler.sound._ba.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
+        
+        StartCoroutine(BigCrash());
+    }
+
+    public IEnumerator FinishEditor()
+    {
+        if (StoryHandler.likedGirlGame)
+        {
+            SoundHandler.sound.Play(SoundHandler.sound._bc);
+            var t = SoundHandler.sound._bc.length;
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
+        }
+        else
+        {
+            optionBox.playerChoice = 0;
+            SoundHandler.sound.Play(SoundHandler.sound._bb);
+            var t = SoundHandler.sound._bb.length;
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+            while (t >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t = 1;
+                }
+
+                t -= Time.deltaTime;
+                yield return null;
+            }
+            
+            optionBox.PopupOptionBox("WHAT DO YOU THINK OF THE GAME NOW?", "IT'S GREAT", "IT'S STILL BAD");
+            while (optionBox.playerChoice == 0)
+            {
+                yield return null;
+            }
+
+            if (optionBox.playerChoice == 1)
+            {
+                StoryHandler.likedGirlGameAgain = true;
+                SoundHandler.sound.Play(SoundHandler.sound._ca);
+                var t1 = SoundHandler.sound._ca.length;
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+                while (t1 >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t1 = 1;
+                    }
+
+                    t1 -= Time.deltaTime;
+                    yield return null;
+                }
+            }
+            else
+            {
+                SoundHandler.sound.Play(SoundHandler.sound._cb);
+                var t1 = SoundHandler.sound._cb.length;
+                if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+                while (t1 >= 0)
+                {
+                    if (Skip)
+                    {
+                        Skip = false;
+                        t1 = 1;
+                    }
+
+                    t1 -= Time.deltaTime;
+                    yield return null;
+                }
+            }
+            optionBox.playerChoice = 0;
+        }
+
+        StartCoroutine(BigCrash());
+    }
+
+    private IEnumerator BigCrash()
+    {
+        yield return null;
+        Debug.Log("BigCrash");
     }
     
     
