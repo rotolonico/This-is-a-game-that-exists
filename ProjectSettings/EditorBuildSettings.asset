@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GirlGameEditor.unity
     guid: 76ed64d533b19b47183466b02844dbfe
+  - enabled: 1
+    path: Assets/Scenes/Chapter1End.unity
+    guid: ab9ddc948d43e7fed982a9e74c8b7d30
   m_configObjects: {}

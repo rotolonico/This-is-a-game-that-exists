@@ -44,8 +44,10 @@
           <e p="Handlers" t="Include">
             <e p="ClickHandler.cs" t="Include" />
             <e p="Draggable.cs" t="Include" />
+            <e p="ResultsHandler.cs" t="Include" />
             <e p="SoundHandler.cs" t="Include" />
             <e p="StoryHandler.cs" t="Include" />
+            <e p="TitlesAnimation.cs" t="Include" />
           </e>
           <e p="Main.cs" t="Include" />
           <e p="RandomGame" t="Include">

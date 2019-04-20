@@ -28,6 +28,8 @@ namespace Database
         public int nDeletedPlayer;
         public int likedGirlGameAgain;
         public int nLikedGirlGameAgain;
+        public int saidYes;
+        public int nSaidYes;
 
         public int playedGame;
         public int finishedChapterNormal;

@@ -77,8 +77,10 @@
     <Compile Include="Assets\Scripts\GuyGame\SignTrigger.cs" />
     <Compile Include="Assets\Scripts\Handlers\ClickHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\Draggable.cs" />
+    <Compile Include="Assets\Scripts\Handlers\ResultsHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\SoundHandler.cs" />
     <Compile Include="Assets\Scripts\Handlers\StoryHandler.cs" />
+    <Compile Include="Assets\Scripts\Handlers\TitlesAnimation.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
     <Compile Include="Assets\Scripts\RandomGame\Laser.cs" />
     <Compile Include="Assets\Scripts\RandomGame\RandomGameLoadingStarter.cs" />
@@ -312,6 +314,9 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>/home/rotolonico/Unity/Hub/Editor/2018.3.11f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="RSG.Promise">
+      <HintPath>/home/rotolonico/unityprojects/This is a game that exists/Assets/RestClient/Packages/RSG.Promise.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>/home/rotolonico/unityprojects/This is a game that exists/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
@@ -320,9 +325,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/home/rotolonico/unityprojects/This is a game that exists/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="RSG.Promise">
-      <HintPath>/home/rotolonico/unityprojects/This is a game that exists/Assets/RestClient/Packages/RSG.Promise.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/home/rotolonico/Unity/Hub/Editor/2018.3.11f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

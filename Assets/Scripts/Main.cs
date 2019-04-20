@@ -108,7 +108,6 @@ public class Main : MonoBehaviour
     
     public void Initialize()
     {
-        SoundHandler.sound.Play(SoundHandler.sound.a);
         StartCoroutine(AfterIntroduction());
         titleLetters = GameObject.FindGameObjectsWithTag("TitleLetter");
         letterHolders = GameObject.FindGameObjectsWithTag("LetterHolder");
@@ -117,6 +116,10 @@ public class Main : MonoBehaviour
 
     private IEnumerator AfterIntroduction()
     {
+        yield return new WaitForSeconds(4);
+        Destroy(GameObject.Find("Chapter"));
+        
+        SoundHandler.sound.Play(SoundHandler.sound.a);
         var t = SoundHandler.sound.a.length;
         if (isSkipMode) skipButtonScript.PopupSkipButton(t);
         while (t >= 0)
@@ -1294,6 +1297,7 @@ public class Main : MonoBehaviour
 
     public IEnumerator DeletePlayer()
     {
+        Destroy(GameObject.Find("LeaveEditorButton"));
         StoryHandler.deletedPlayer = true;
         DatabaseHandler.PostVariableToDatabase(1, "deletedPlayer");
         SoundHandler.sound.Play(SoundHandler.sound._ba);
@@ -1327,19 +1331,7 @@ public class Main : MonoBehaviour
         if (StoryHandler.likedGirlGame)
         {
             SoundHandler.sound.Play(SoundHandler.sound._bc);
-            var t = SoundHandler.sound._bc.length;
-            if (isSkipMode) skipButtonScript.PopupSkipButton(t);
-            while (t >= 0)
-            {
-                if (Skip)
-                {
-                    Skip = false;
-                    t = 1;
-                }
-
-                t -= Time.deltaTime;
-                yield return null;
-            }
+            yield return new WaitForSeconds(SoundHandler.sound._bc.length);
         }
         else
         {
@@ -1388,19 +1380,7 @@ public class Main : MonoBehaviour
             {
                 DatabaseHandler.PostVariableToDatabase(1, "nLikedGirlGameAgain");
                 SoundHandler.sound.Play(SoundHandler.sound._cb);
-                var t1 = SoundHandler.sound._cb.length;
-                if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
-                while (t1 >= 0)
-                {
-                    if (Skip)
-                    {
-                        Skip = false;
-                        t1 = 1;
-                    }
-
-                    t1 -= Time.deltaTime;
-                    yield return null;
-                }
+                yield return SoundHandler.sound._cb.length;
             }
             optionBox.playerChoice = 0;
         }
@@ -1410,8 +1390,92 @@ public class Main : MonoBehaviour
 
     private IEnumerator BigCrash()
     {
-        yield return null;
-        Debug.Log("BigCrash");
+        SoundHandler.sound.Play(SoundHandler.sound._d);
+        var t = SoundHandler.sound._d.length;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
+
+        optionBox.playerChoice = 0;
+        optionBox.PopupOptionBox("WHAT DO YOU WANT TO SAY?", "YES", "NO");
+        while (optionBox.playerChoice == 0)
+        {
+            yield return null;
+        }
+
+        if (optionBox.playerChoice == 1)
+        {
+            StoryHandler.saidYes = true;
+            DatabaseHandler.PostVariableToDatabase(1, "saidYes");
+            
+            SoundHandler.sound.Play(SoundHandler.sound._eb);
+            var t1 = SoundHandler.sound._eb.length;
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+            while (t1 >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t1 = 1;
+                }
+
+                t1 -= Time.deltaTime;
+                yield return null;
+            }
+        }
+        else
+        {
+            DatabaseHandler.PostVariableToDatabase(1, "nSaidYes");
+            
+            SoundHandler.sound.Play(SoundHandler.sound._ea);
+            var t1 = SoundHandler.sound._ea.length;
+            if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
+            while (t1 >= 0)
+            {
+                if (Skip)
+                {
+                    Skip = false;
+                    t1 = 1;
+                }
+
+                t1 -= Time.deltaTime;
+                yield return null;
+            }
+
+        }
+        
+        DatabaseHandler.PostVariableToDatabase(1, isSkipMode ? "finishedChapterSkip" : "finishedChapterNormal");
+        SceneManager.LoadScene(8);
+
+        optionBox.playerChoice = 0;
+    }
+
+    public IEnumerator CreditsSkip()
+    {
+        var t = 60f;
+        if (isSkipMode) skipButtonScript.PopupSkipButton(t, true);
+        while (t >= 0)
+        {
+            if (Skip)
+            {
+                Skip = false;
+                t = 1;
+            }
+
+            t -= Time.deltaTime;
+            yield return null;
+        }
+
+        SceneManager.LoadScene(0);
     }
     
     

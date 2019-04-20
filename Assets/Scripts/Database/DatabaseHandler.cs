@@ -5,7 +5,7 @@ namespace Database
 {
     public class DatabaseHandler : MonoBehaviour
     {
-        public static string ProjectId = "project-id";
+        public static string ProjectId = "unfriendlybot-105be";
 
         public static string DatabaseUrl = "https://" + ProjectId + ".firebaseio.com/";
         

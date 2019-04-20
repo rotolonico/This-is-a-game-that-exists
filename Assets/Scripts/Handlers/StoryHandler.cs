@@ -15,5 +15,6 @@ namespace Handlers
         public static bool leftEditor;
         public static bool deletedPlayer;
         public static bool likedGirlGameAgain;
+        public static bool saidYes;
     }
 }

@@ -16,15 +16,15 @@ namespace UI
             animator = GetComponent<Animator>();
         }
 
-        public void PopupSkipButton(float time)
+        public void PopupSkipButton(float time, bool realTime = false)
         {
             animator.Play("Popup");
-            StartCoroutine(PopdownSkipButton(time));
+            StartCoroutine(PopdownSkipButton(time, realTime));
         }
         
-        private IEnumerator PopdownSkipButton(float time)
+        private IEnumerator PopdownSkipButton(float time, bool realTime)
         {
-            if (time > 5) time = 5;
+            if (!realTime && time > 5) time = 5;
             yield return new WaitForSeconds(1);
             button.interactable = true;
             yield return new WaitForSeconds(time -1.5f);
