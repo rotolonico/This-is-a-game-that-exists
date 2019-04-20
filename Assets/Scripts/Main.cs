@@ -1475,6 +1475,15 @@ public class Main : MonoBehaviour
             yield return null;
         }
 
+        Destroy(GameObject.Find("EventSystem"));
+        Destroy(GameObject.Find("SkipCanvas"));
+        Destroy(GameObject.Find("AdminCanvas"));
+        Destroy(GameObject.Find("InfoCanvas"));
+        Destroy(GameObject.Find("OptionCanvas"));
+        Destroy(GameObject.Find("GiveUpCanvas"));
+        Destroy(GameObject.Find("MainCanvas"));
+        Destroy(GameObject.Find("Main Camera"));
+        Destroy(GameObject.Find("MainHandler"));
         SceneManager.LoadScene(0);
     }
     

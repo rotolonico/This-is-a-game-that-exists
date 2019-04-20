@@ -1,4 +1,5 @@
-﻿using Database;
+﻿using System;
+using Database;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -41,6 +42,7 @@ namespace Handlers
         {
             DatabaseHandler.GetChapter1FromDatabase(chapter =>
             {
+                Debug.Log(chapter.nMadeSignFall);
                 var madeSignFall = GetPercentage(chapter.madeSignFall, chapter.nMadeSignFall);
                 var scrambledSign = GetPercentage(chapter.scrambledSign, chapter.nScrambledSign);
                 var fixedGame = GetPercentage(chapter.fixedGame, chapter.nFixedGame);
@@ -54,6 +56,7 @@ namespace Handlers
                 var likedGirlGameAgain = GetPercentage(chapter.likedGirlGameAgain, chapter.nLikedGirlGameAgain);
                 var saidYes = GetPercentage(chapter.saidYes, chapter.nSaidYes);
                 
+                Debug.Log(madeSignFallF.position);
                 madeSignFallF.position += new Vector3(madeSignFall*5, 0, 0);
                 scrambledSignF.position += new Vector3(scrambledSign*5, 0, 0);
                 fixedGameF.position += new Vector3(fixedGame*5, 0, 0);
@@ -87,10 +90,11 @@ namespace Handlers
             }, () => { SceneManager.LoadScene(0); });
         }
 
-        private static int GetPercentage(int variable, int nVariable)
+        private int GetPercentage(float variable, float nVariable)
         {
-            if (variable + nVariable == 0) return 50;
-            return variable / (variable + nVariable) * 100;
+            if (Math.Abs(variable + nVariable) < 0.5f) return 50;
+            Debug.Log(variable / (variable + nVariable) * 100f);
+            return (int)(variable / (variable + nVariable) * 100f);
         }
     }
 }
