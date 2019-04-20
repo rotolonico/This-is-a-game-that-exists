@@ -57,6 +57,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\RestClient\Packages\Proyecto26.RestClient\Promises\RestClient.cs" />
+    <Compile Include="Assets\RestClient\Packages\Proyecto26.RestClient\RestClient.cs" />
+    <Compile Include="Assets\RestClient\Packages\Proyecto26.RestClient\Utils\Extensions.cs" />
+    <Compile Include="Assets\RestClient\Packages\Proyecto26.RestClient\Utils\HttpBase.cs" />
+    <Compile Include="Assets\RestClient\Packages\Proyecto26.RestClient\Utils\JsonHelper.cs" />
+    <Compile Include="Assets\RestClient\Packages\Proyecto26.RestClient\Utils\RequestException.cs" />
+    <Compile Include="Assets\RestClient\Packages\Proyecto26.RestClient\Utils\RequestHelper.cs" />
+    <Compile Include="Assets\RestClient\Packages\Proyecto26.RestClient\Utils\ResponseHelper.cs" />
+    <Compile Include="Assets\RestClient\Packages\Proyecto26.RestClient\Utils\StaticCoroutine.cs" />
+    <Compile Include="Assets\Scripts\Database\Chapter1.cs" />
+    <Compile Include="Assets\Scripts\Database\DatabaseHandler.cs" />
     <Compile Include="Assets\Scripts\GirlGame\EditorHandler.cs" />
     <Compile Include="Assets\Scripts\GirlGame\GirlGameEditorStarter.cs" />
     <Compile Include="Assets\Scripts\GirlGame\GirlGameStarter.cs" />
@@ -309,6 +320,9 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/home/rotolonico/unityprojects/This is a game that exists/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="RSG.Promise">
+      <HintPath>/home/rotolonico/unityprojects/This is a game that exists/Assets/RestClient/Packages/RSG.Promise.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/home/rotolonico/Unity/Hub/Editor/2018.3.11f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

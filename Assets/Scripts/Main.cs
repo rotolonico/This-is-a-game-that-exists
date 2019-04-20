@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Database;
 using GirlGame;
 using Handlers;
 using SimonGame;
@@ -94,6 +95,7 @@ public class Main : MonoBehaviour
 
     private IEnumerator StartGame()
     {
+        DatabaseHandler.PostVariableToDatabase(1, "playedGame");
         normalButton.interactable = false;
         skipButton.interactable = false;
         SoundHandler.sound.Play(SoundHandler.sound.loadingSound);
@@ -166,12 +168,14 @@ public class Main : MonoBehaviour
         if (playerFault)
         {
             StoryHandler.madeSignFall = true;
+            DatabaseHandler.PostVariableToDatabase(1, "madeSignFall");
             sound = SoundHandler.sound.ba;
             Destroy(signTrigger.gameObject);
         }
         else
         {
             sound = SoundHandler.sound.bbb;
+            DatabaseHandler.PostVariableToDatabase(1, "nMadeSignFall");
         }
 
         ClickHandler.Active = true;
@@ -219,15 +223,18 @@ public class Main : MonoBehaviour
         {
             sound = SoundHandler.sound.ca;
             StoryHandler.scrambledSign = true;
+            DatabaseHandler.PostVariableToDatabase(1, "scrambledSign");
         } else if (!combo && !StoryHandler.madeSignFall)
         {
             sound = SoundHandler.sound.cb;
             StoryHandler.scrambledSign = true;
+            DatabaseHandler.PostVariableToDatabase(1, "scrambledSign");
         }
         else
         {
             sound = SoundHandler.sound.cc;
             StoryHandler.scrambledSign = false;
+            DatabaseHandler.PostVariableToDatabase(1, "nScrambledSign");
         }
         
         SoundHandler.sound.Play(sound);
@@ -296,6 +303,7 @@ public class Main : MonoBehaviour
             t2 -= Time.deltaTime;
             yield return null;
         }
+        DatabaseHandler.PostVariableToDatabase(1, "nFixedGame");
         StartCoroutine(GetToGirlGame());
     }
 
@@ -316,6 +324,7 @@ public class Main : MonoBehaviour
         adminCheckMarkCheckedBool = true;
         AdminCheckMark.GetComponent<Image>().sprite = AdminCheckMarkChecked;
         StoryHandler.fixedGame = true;
+        DatabaseHandler.PostVariableToDatabase(1, "fixedGame");
         SoundHandler.sound.Play(SoundHandler.sound.eb);
         yield return new WaitForSeconds(4);
         gameStarterAnimator.enabled = true;
@@ -489,6 +498,7 @@ public class Main : MonoBehaviour
     private IEnumerator LikedGirlGame()
     {
         StoryHandler.likedGirlGame = true;
+        DatabaseHandler.PostVariableToDatabase(1, "likedGirlGame");
         SoundHandler.sound.Play(SoundHandler.sound.ha);
         var t = SoundHandler.sound.ha.length;
         if (isSkipMode) skipButtonScript.PopupSkipButton(t);
@@ -518,6 +528,7 @@ public class Main : MonoBehaviour
     
     private IEnumerator DislikedGirlGame()
     {
+        DatabaseHandler.PostVariableToDatabase(1, "nLikedGirlGame");
         if (StoryHandler.fixedGame)
         {
             SoundHandler.sound.Play(SoundHandler.sound.hba);
@@ -583,7 +594,16 @@ public class Main : MonoBehaviour
         }
 
         StartCoroutine(optionBox.playerChoice == 1 ? GetToRandomGame() : StayInGirlGame());
-        StoryHandler.wentToGuyGame = optionBox.playerChoice == 1;
+        if (optionBox.playerChoice == 1)
+        {
+            StoryHandler.wentToGuyGame = true;
+            DatabaseHandler.PostVariableToDatabase(1, "wentToGuyGame");
+        }
+        else
+        {
+            DatabaseHandler.PostVariableToDatabase(1, "nWentToGuyGame");
+        }
+        
 
         optionBox.playerChoice = 0;
     }
@@ -719,6 +739,7 @@ public class Main : MonoBehaviour
         
         if (StoryHandler.saidName)
         {
+            DatabaseHandler.PostVariableToDatabase(1, "saidName");
             SoundHandler.sound.Play(SoundHandler.sound.na);
             var t1 = SoundHandler.sound.na.length;
             if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
@@ -736,6 +757,7 @@ public class Main : MonoBehaviour
         }
         else
         {
+            DatabaseHandler.PostVariableToDatabase(1, "nSaidName");
             SoundHandler.sound.Play(SoundHandler.sound.nb);
             var t2 = SoundHandler.sound.nb.length;
             if (isSkipMode) skipButtonScript.PopupSkipButton(t2);
@@ -781,7 +803,15 @@ public class Main : MonoBehaviour
             square.GetComponent<BoxCollider2D>().enabled = false;
         }
 
-        if (failed) StoryHandler.gaveUpFirstPuzzle = true;
+        if (failed)
+        {
+            StoryHandler.gaveUpFirstPuzzle = true;
+            DatabaseHandler.PostVariableToDatabase(1, "gaveUpFirstPuzzle");
+        }
+        else
+        {
+            DatabaseHandler.PostVariableToDatabase(1, "nGaveUpFirstPuzzle");
+        }
         SoundHandler.sound.Play(failed ? SoundHandler.sound.pa : SoundHandler.sound.p);
         var t = failed ? SoundHandler.sound.pa.length : SoundHandler.sound.p.length;
         if (isSkipMode) skipButtonScript.PopupSkipButton(t);
@@ -1002,6 +1032,7 @@ public class Main : MonoBehaviour
             if (optionBox.playerChoice == 1)
             {
                 StoryHandler.likedSimonGame = true;
+                DatabaseHandler.PostVariableToDatabase(1, "likedSimonGame");
                 SoundHandler.sound.Play(SoundHandler.sound.xb);
                 var t1 = SoundHandler.sound.xb.length;
                 if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
@@ -1044,6 +1075,7 @@ public class Main : MonoBehaviour
             }
             else
             {
+                DatabaseHandler.PostVariableToDatabase(1, "nLikedSimonGame");
                 SoundHandler.sound.Play(SoundHandler.sound.xa);
                 var t1 = SoundHandler.sound.xa.length;
                 if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
@@ -1218,6 +1250,7 @@ public class Main : MonoBehaviour
     public IEnumerator LeaveEditor()
     {
         StoryHandler.leftEditor = true;
+        DatabaseHandler.PostVariableToDatabase(1, "leftEditor");
         EditorHandler.activated = false;
         GPlayerController.activated = false;
         GPlayerController.editorMode = false;
@@ -1262,6 +1295,7 @@ public class Main : MonoBehaviour
     public IEnumerator DeletePlayer()
     {
         StoryHandler.deletedPlayer = true;
+        DatabaseHandler.PostVariableToDatabase(1, "deletedPlayer");
         SoundHandler.sound.Play(SoundHandler.sound._ba);
         var t = SoundHandler.sound._ba.length;
         if (isSkipMode) skipButtonScript.PopupSkipButton(t);
@@ -1282,6 +1316,14 @@ public class Main : MonoBehaviour
 
     public IEnumerator FinishEditor()
     {
+        Destroy(GameObject.Find("LeaveEditorButton"));
+        EditorHandler.activated = false;
+        GPlayerController.activated = false;
+        GPlayerController.editorMode = false;
+        
+        if (StoryHandler.leftEditor) DatabaseHandler.PostVariableToDatabase(1, "nLeftEditor");
+        DatabaseHandler.PostVariableToDatabase(1, "nDeletedPlayer");
+        
         if (StoryHandler.likedGirlGame)
         {
             SoundHandler.sound.Play(SoundHandler.sound._bc);
@@ -1326,6 +1368,7 @@ public class Main : MonoBehaviour
             if (optionBox.playerChoice == 1)
             {
                 StoryHandler.likedGirlGameAgain = true;
+                DatabaseHandler.PostVariableToDatabase(1, "likedGirlGameAgain");
                 SoundHandler.sound.Play(SoundHandler.sound._ca);
                 var t1 = SoundHandler.sound._ca.length;
                 if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
@@ -1343,6 +1386,7 @@ public class Main : MonoBehaviour
             }
             else
             {
+                DatabaseHandler.PostVariableToDatabase(1, "nLikedGirlGameAgain");
                 SoundHandler.sound.Play(SoundHandler.sound._cb);
                 var t1 = SoundHandler.sound._cb.length;
                 if (isSkipMode) skipButtonScript.PopupSkipButton(t1);
